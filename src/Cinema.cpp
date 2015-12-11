@@ -48,7 +48,7 @@ void Cinema::runCinema(){
 		//Add movie to the movie vector
 		case 1:
 			addMovie(inputVec);
-			break;
+				break;
 			//Adds a Professional to the Pro List
 		case 2:
 			addPro(inputVec);
