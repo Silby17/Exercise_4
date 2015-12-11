@@ -1,0 +1,16 @@
+/****************************************
+ * Yossi Silberhaft						*
+ * Exercise 3							*
+ * File: CntrCompare.h				*
+ ****************************************/
+#ifndef CNTRCOMPARE_H
+#define CNTRCOMPARE_H
+#include "Professionals.h"
+
+class CntrCompare {
+
+public:
+	bool operator()(const Professionals* first, const Professionals* second);
+};
+
+#endif
