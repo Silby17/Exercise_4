@@ -6,8 +6,6 @@
 #ifndef EXERCISE_4_UDP_TCP_PARENT_H
 #define EXERCISE_4_UDP_TCP_PARENT_H
 
-
-#include UDP-TCP-Parent.h
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
@@ -16,8 +14,9 @@
 #include <cstring>
 #include <unistd.h>
 #include <iostream>
-
 using namespace std;
+#define BUFFER_SIZE 10000
+
 
 class udpTcpParent{
 
