@@ -1,6 +1,6 @@
 /****************************************
  * Yossi Silberhaft						*
- * Exercise 3							*
+ * Exercise 4							*
  * File: Professional.cpp				*
  ****************************************/
 #include "Professionals.h"
