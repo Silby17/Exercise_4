@@ -28,8 +28,4 @@ void UDPClient::connectUDP(unsigned int server_port, char* ip_address){
     sin.sin_addr.s_addr = inet_addr(ip_address);
     sin.sin_port = htons(server_port);
 
-    //makes the connection return error if connection not made
-    if (connect(sock, (struct sockaddr *) &sin, sizeof(sin)) < 0) {
-        perror("error connecting UDP Client\n");
-    }
 }
