@@ -1,2 +1,2 @@
 all:
-	g++  *.cpp -lm -ansi -pedantic -lpthread -o cinema.out
+	g++  *.cpp -lm -ansi -pedantic -lpthread -o server.out
