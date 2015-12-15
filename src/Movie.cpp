@@ -4,10 +4,7 @@
  * File: Movie.cpp						*
  ****************************************/
 #include "Movie.h"
-#include "AgeCompare.h"
-#include "IDCompare.h"
-#include "CntrCompare.h"
-#include <list>
+#include "Cinema.h"
 #include <iostream>
 #include <algorithm>
 using namespace std;
