@@ -50,11 +50,11 @@ string UDP::receiveFrom() {
         cout << "bytes < 0";
     }
     else{
-        return buffer;
-        //port = ntohs(from.sin_port);
+        string str(buffer);
+        return str;
+        port = ntohs(from.sin_port);
     }
 }
-
 
 
 int UDP::getPortNumber() {
