@@ -6,6 +6,7 @@
 #include "Actor.h"
 #include <iostream>
 #include <sstream>
+#include "Cinema.h"
 using namespace std;
 
 
