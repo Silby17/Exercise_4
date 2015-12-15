@@ -5,24 +5,16 @@
  ****************************************/
 #include "Inputs.h"
 #include "Cinema.h"
-#include "Movie.h"
 #include "Producer.h"
 #include "Director.h"
 #include "Screenwriter.h"
 #include "Actor.h"
-#include "stdlib.h"
-#include <iostream>
 #include <algorithm>
 #include <iterator>
-#include <string>
 #include <sstream>
-#include <vector>
-#include "AgeCompare.h"
-#include "IDCompare.h"
-#include "CntrCompare.h"
 
-#include <typeinfo>
 using namespace std;
+#define IP_ADDRESS "127.0.0.1"
 
 
 /************************************************************************
@@ -30,17 +22,31 @@ using namespace std;
  ************************************************************************/
 Cinema::Cinema(){}
 
-void Cinema::runCinema(){
+UDPServer* Cinema::makeUDP(string type, int port){
+	UDPServer* udpServer = new UDPServer;
+	udpServer->newSocket(SOCK_DGRAM);
+	udpServer->bindUDP(port);
+
+	return udpServer;
+}
+
+
+void Cinema::runCinema(string type, int port){
 	int running = 1;
 	int option;
 	int code;
 	string usrInput;
 	vector<string> inputVec;
+	this->udpServer = new UDPServer;
+	udpServer->newSocket(SOCK_DGRAM);
+	udpServer->bindUDP(port);
 
 
 	while(running){
-		usrInput = myInputs.getInputFromUser();
+		usrInput = udpServer->receiveFrom();
+		udpServer->sendTo()
 		inputVec = myInputs.getInputVector(usrInput);
+
 		option = atoi(inputVec.at(0).c_str());
 
 		//Switch case for the users entries
