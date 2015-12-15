@@ -7,8 +7,6 @@ using namespace std;
 
 class TCPServer: public TCP {
 
-private:
-    int client_socket;
 
 public:
 
