@@ -41,20 +41,23 @@ void UDP::sendTo(char *ip_address, int port_num, string data) {
 /************************************************************************
 * This function receives data from the UDP Server                       *
 ************************************************************************/
-void UDP::receiveFrom() {
+string UDP::receiveFrom() {
+
     struct sockaddr_in from;
     unsigned int from_len = sizeof(struct sockaddr_in);;
     char buffer[BUFFER_SIZE];
+
     int bytes = recvfrom(sock, buffer, sizeof(buffer), 0, (struct sockaddr *) &from, &from_len);
+
     if (bytes < 0) {
         cout << "bytes < 0";
     }
     else{
-        cout << buffer << endl;
+        string str(buffer);
+        return str;
         port = ntohs(from.sin_port);
     }
 }
-
 
 
 int UDP::getPortNumber() {
