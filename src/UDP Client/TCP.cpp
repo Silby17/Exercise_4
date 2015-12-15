@@ -22,7 +22,7 @@ void TCP::sendTCP(char *data, unsigned int data_len) {
 
 }
 
-void TCP::reveiveTCP() {
+void TCP::receiveTCP() {
     char buffer[BUFFER_SIZE];
     int expected_data_len = sizeof(buffer);
 
