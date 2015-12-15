@@ -22,7 +22,11 @@ using namespace std;
  ************************************************************************/
 Cinema::Cinema(){}
 
-UDPServer* Cinema::makeUDP(string type, int port){
+TCPServer* Cinema::makeTCP(int port) {
+
+}
+
+UDPServer* Cinema::makeUDP(int port){
 	UDPServer* udpServer = new UDPServer;
 	udpServer->newSocket(SOCK_DGRAM);
 	udpServer->bindUDP(port);
@@ -37,13 +41,22 @@ void Cinema::runCinema(string type, int port){
 	int code;
 	string usrInput;
 	vector<string> inputVec;
-	this->udpServer = new UDPServer;
-	udpServer->newSocket(SOCK_DGRAM);
-	udpServer->bindUDP(port);
+	//this->udpServer = new UDPServer;
+	//udpServer->newSocket(SOCK_DGRAM);
+	//udpServer->bindUDP(port);
+	char data[] = "NO";
+	int data_len = sizeof(data);
+	this->tcpServer = new TCPServer;
+	tcpServer->newSocket(SOCK_STREAM);
+	tcpServer->bindTCP(port);
+	tcpServer->listenTCP(2);
+	tcpServer->acceptTCP();
+	//tcpServer->sendTCP(data, data_len);
 
 
 	while(running){
-		usrInput = udpServer->receiveFrom();
+		usrInput = tcpServer->receiveTCP();
+		//usrInput = udpServer->receiveFrom();
 		inputVec = myInputs.getInputVector(usrInput);
 		option = atoi(inputVec.at(0).c_str());
 

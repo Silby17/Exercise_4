@@ -22,10 +22,9 @@ void TCP::sendTCP(char *data, unsigned int data_len) {
 
 }
 
-void TCP::receiveTCP() {
+string TCP::receiveTCP() {
     char buffer[BUFFER_SIZE];
     int expected_data_len = sizeof(buffer);
-
     //Puts received bytes into buffer and returns size of received data
     int read_bytes = recv(sock, buffer, expected_data_len, 0);
 
@@ -40,5 +39,7 @@ void TCP::receiveTCP() {
         //prints recieved buffer
     else {
         cout << "Received data : " << buffer << endl;
+        string str(buffer);
+        return str;
     }
 }
