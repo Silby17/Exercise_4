@@ -4,19 +4,19 @@
 #include "TCP.h"
 using namespace std;
 
-class TCPCLient: public TCP{
+class TCPClient: public TCP{
 
 
     /************************************************************************
 	 * This is the TCPClient Constructor                                    *
 	 ************************************************************************/
-    TCPCLient();
+    TCPClient();
 
 
     /************************************************************************
 	 * This is the TCPClient destructor                                     *
 	 ************************************************************************/
-    virtual ~TCPCLient();
+    virtual ~TCPClient();
 
 
     /************************************************************************
