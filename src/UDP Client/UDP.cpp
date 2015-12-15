@@ -1,20 +1,21 @@
 /****************************************
  * Yossi Silberhaft						*
  * Exercise 4							*
- * File: UDP.p          				*
+ * File: UDP.cpp          				*
  ****************************************/
 #include "UDP.h"
+
 
 /************************************************************************
 * This is the UDP Class constructor		        					    *
 ************************************************************************/
 UDP::UDP() { }
 
-
 /************************************************************************
 * This is the UDP class destructor      						    	*
 ************************************************************************/
 UDP::~UDP() { }
+
 
 /************************************************************************
 * This function will receive an IP Address and a port number            *
@@ -42,7 +43,6 @@ void UDP::sendTo(char *ip_address, int port_num, string data) {
 * This function receives data from the UDP Server                       *
 ************************************************************************/
 string UDP::receiveFrom() {
-
     struct sockaddr_in from;
     unsigned int from_len = sizeof(struct sockaddr_in);;
     char buffer[BUFFER_SIZE];
@@ -53,13 +53,16 @@ string UDP::receiveFrom() {
         cout << "bytes < 0";
     }
     else{
+        port = ntohs(from.sin_port);
         string str(buffer);
         return str;
-        port = ntohs(from.sin_port);
     }
 }
 
 
+/************************************************************************
+* This function will return the port number of the sender               *
+************************************************************************/
 int UDP::getPortNumber() {
     return this->port;
 }
