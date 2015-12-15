@@ -45,7 +45,9 @@ string UDP::receiveFrom() {
     struct sockaddr_in from;
     unsigned int from_len = sizeof(struct sockaddr_in);;
     char buffer[BUFFER_SIZE];
+
     int bytes = recvfrom(sock, buffer, sizeof(buffer), 0, (struct sockaddr *) &from, &from_len);
+
     if (bytes < 0) {
         cout << "bytes < 0";
     }
