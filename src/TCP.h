@@ -1,13 +1,17 @@
-
+/****************************************
+ * Yossi Silberhaft						*
+ * Exercise 4							*
+ * File: TCP.h           				*
+ ****************************************/
 #ifndef EXERCISE_4_TCP_H
 #define EXERCISE_4_TCP_H
+
 #include "udpTcpParent.h"
-#define IP_ADDRESS "127.0.0.1"
 
 class TCP: public udpTcpParent{
 
 protected:
-    int client_sock;
+    int t_client_sock;
 public:
 
     /************************************************************************
@@ -36,4 +40,4 @@ public:
 };
 
 
-#endif //EXERCISE_4_TCP_H
+#endif

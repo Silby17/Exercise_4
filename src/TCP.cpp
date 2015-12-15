@@ -1,18 +1,25 @@
+/****************************************
+ * Yossi Silberhaft						*
+ * Exercise 4							*
+ * File: TCP.cpp          				*
+ ****************************************/
 #include "TCP.h"
 
 /************************************************************************
- * This is the TCP Class constructor		        					*
+* This is the TCP Class constructor		        				    	*
 ************************************************************************/
 TCP::TCP() { }
 
 
 /************************************************************************
-	 * This is the TCP destructor      		        					*
+* This is the TCP destructor      		        					    *
 ************************************************************************/
 TCP::~TCP() { }
 
 
-
+/************************************************************************
+* This function sends data using the TCP server                         *
+************************************************************************/
 void TCP::sendTCP(char *data, unsigned int data_len) {
     int sent_bytes = send(sock, data, data_len, 0);
 
@@ -22,6 +29,11 @@ void TCP::sendTCP(char *data, unsigned int data_len) {
 
 }
 
+
+/************************************************************************
+* This function receives data from the client and returns it            *
+ * as a string to the main program                                      *
+************************************************************************/
 string TCP::receiveTCP() {
     char buffer[BUFFER_SIZE];
     int expected_data_len = sizeof(buffer);
@@ -36,9 +48,8 @@ string TCP::receiveTCP() {
     else if (read_bytes < 0) {
         cout << "error. not enough bytes read";
     }
-        //prints recieved buffer
+        //Returns the string of the input from the Client
     else {
-        cout << "Received data : " << buffer << endl;
         string str(buffer);
         return str;
     }

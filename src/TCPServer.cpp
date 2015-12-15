@@ -30,18 +30,19 @@ void TCPServer::bindTCP(unsigned int server_port){
     sin.sin_port = htons(server_port);
 
     //binds a socket to a port number
-    if (bind(sock, (struct sockaddr *) &sin, sizeof(sin)) < 0) {
-        cout << "error binding";
+    if (bind(this->sock, (struct sockaddr *) &sin, sizeof(sin)) < 0) {
+        cout << "TCP Server error binding\n";
     }
 }
+
 
 /************************************************************************
  * This function will wait for incoming transmissions                   *
  ************************************************************************/
 void TCPServer::listenTCP(int back_log){
     //The Host waits for incoming transmission
-    if (listen(sock, back_log) < 0) {
-        cout << "error. while Tcp server listening\n";
+    if (listen(this->sock, back_log) < 0) {
+        cout << "TCP Error Listening\n";
     }
 }
 
@@ -54,11 +55,13 @@ void TCPServer::acceptTCP(){
     //will contain client ip address and port number
     struct sockaddr_in client_sin;
     unsigned int addr_len = sizeof(client_sin);
+    //TODO remove prints here
+    cout << "Before accept" << endl;
     //returns a dedicated socket descriptor to communicate with the client
-    int client_socket = accept(sock, (struct sockaddr *) &client_sin, &addr_len);
-    if (client_socket < 0) {
-        cout << "error. client socket < 0\n";
+    t_client_sock = accept(this->sock, (struct sockaddr *) &client_sin, &addr_len);
+    if (t_client_sock < 0) {
+        cout << "Error Accepting Client Socket < 0\n";
     }
-    client_sock = client_socket;
-    sock = client_sock;
+    cout << "After accept" << endl;
+    this->sock = t_client_sock;
 }
