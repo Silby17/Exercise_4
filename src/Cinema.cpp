@@ -45,7 +45,6 @@ void Cinema::runCinema(string type, int port){
 	while(running){
 		usrInput = udpServer->receiveFrom();
 		inputVec = myInputs.getInputVector(usrInput);
-
 		option = atoi(inputVec.at(0).c_str());
 
 		//Switch case for the users entries
