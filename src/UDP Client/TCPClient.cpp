@@ -19,8 +19,8 @@ TCPClient::~TCPClient() { }
 ************************************************************************/
 void TCPClient::connectTCP(unsigned int server_port, char *ip_address) {
     struct sockaddr_in sin;
-    memset(&sin, 0, sizeof(sin));
 
+    memset(&sin, 0, sizeof(sin));
     sin.sin_family = AF_INET;
     sin.sin_addr.s_addr = inet_addr(ip_address);
     sin.sin_port = htons(server_port);
