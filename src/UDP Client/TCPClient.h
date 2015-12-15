@@ -4,9 +4,9 @@
 #include "TCP.h"
 using namespace std;
 
-class TCPClient: public TCP{
+class TCPClient: public TCP {
 
-
+public:
     /************************************************************************
 	 * This is the TCPClient Constructor                                    *
 	 ************************************************************************/

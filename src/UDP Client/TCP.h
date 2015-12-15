@@ -2,6 +2,7 @@
 #ifndef EXERCISE_4_TCP_H
 #define EXERCISE_4_TCP_H
 #include "udpTcpParent.h"
+#define IP_ADDRESS "127.0.0.1"
 
 class TCP: public udpTcpParent{
 
@@ -28,7 +29,7 @@ public:
     /************************************************************************
 	 * This will receive the info from the TCP Server                       *
 	 ************************************************************************/
-    void reveiveTCP();
+    void receiveTCP();
 
 };
 
