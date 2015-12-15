@@ -22,41 +22,36 @@ using namespace std;
  ************************************************************************/
 Cinema::Cinema(){}
 
-TCPServer* Cinema::makeTCP(int port) {
 
-}
-
-UDPServer* Cinema::makeUDP(int port){
-	UDPServer* udpServer = new UDPServer;
-	udpServer->newSocket(SOCK_DGRAM);
-	udpServer->bindUDP(port);
-
-	return udpServer;
-}
-
-
+/************************************************************************
+ * This function is responsible for the constant running of the program	*
+ * it will receive a Type and port which will be used to create			*
+ * the necessary server													*
+ ************************************************************************/
 void Cinema::runCinema(string type, int port){
+	this->c_Type = type;
 	int running = 1;
 	int option;
 	int code;
 	string usrInput;
 	vector<string> inputVec;
-	//this->udpServer = new UDPServer;
-	//udpServer->newSocket(SOCK_DGRAM);
-	//udpServer->bindUDP(port);
-	char data[] = "NO";
-	int data_len = sizeof(data);
-	this->tcpServer = new TCPServer;
-	tcpServer->newSocket(SOCK_STREAM);
-	tcpServer->bindTCP(port);
-	tcpServer->listenTCP(2);
-	tcpServer->acceptTCP();
-	//tcpServer->sendTCP(data, data_len);
 
+	if(this->c_Type == "TCP"){
+		this->tcpServer = makeTCP(port);
+	}
+	else if(this->c_Type == "UDP"){
+		this->udpServer = makeUDP(port);
+	}
 
 	while(running){
-		usrInput = tcpServer->receiveTCP();
-		//usrInput = udpServer->receiveFrom();
+		if(this->c_Type == "TCP"){
+			usrInput = tcpServer->receiveTCP();
+		}
+		else {
+			usrInput = udpServer->receiveFrom();
+			this->newPort = udpServer->getPortNumber();
+		}
+
 		inputVec = myInputs.getInputVector(usrInput);
 		option = atoi(inputVec.at(0).c_str());
 
@@ -139,6 +134,33 @@ void Cinema::runCinema(string type, int port){
 }
 
 
+/************************************************************************
+ * This function will create a new TCP server and return it, it will	*
+ * receive an IP addressa and create and new server using that ip		*
+ ************************************************************************/
+TCPServer* Cinema::makeTCP(int port) {
+	TCPServer* tcpServer = new TCPServer;
+	tcpServer->newSocket(SOCK_STREAM);
+	tcpServer->bindTCP(port);
+	tcpServer->listenTCP(2);
+	tcpServer->acceptTCP();
+
+	return tcpServer;
+}
+
+
+/************************************************************************
+ * This function will create a new UDP server and return it, it will	*
+ * receive an IP addressa and create and new server using that ip		*
+ ************************************************************************/
+UDPServer* Cinema::makeUDP(int port){
+	UDPServer* udpServer = new UDPServer;
+	udpServer->newSocket(SOCK_DGRAM);
+	udpServer->bindUDP(port);
+
+	return udpServer;
+}
+
 
 /************************************************************************
  * 1) This function will create a new movie by receiving all the			*
@@ -149,7 +171,6 @@ void Cinema::addMovie(vector<string> inputVector){
 	string code, name, description;
 	int len, year, size;
 	double rating;
-
 	code = inputVector.at(1);
 	size = inputVector.size();
 
@@ -157,11 +178,16 @@ void Cinema::addMovie(vector<string> inputVector){
 	int atIndex = getMovieIndex(code);
 	if(atIndex != -1){
 		//If it does exist
-		cout << "Failure" << endl;
+		if(this->c_Type == "UDP"){
+			udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
+			//cout << "Failure" << endl;
+		}
+		else{
+			tcpServer->sendTCP("Failure", sizeof("Failure"));
+		}
 	}
 	//If it doesn't exist and it returns -1 then add the Movie
 	else {
-
 		//Placing the details into their variables
 		name = inputVector.at(2);
 		len = atoi(inputVector.at(3).c_str());
@@ -184,10 +210,17 @@ void Cinema::addMovie(vector<string> inputVector){
 		movies.push_back(tempMovie);
 		//Checks that the Movie was added to the list
 		if(movies.size() - vectorSize == 1){
-			cout << "Success" << endl;
+			//cout << "Success" << endl;
+			if(this->c_Type == "UDP"){
+				udpServer->sendTo(IP_ADDRESS, this->newPort, "Success");
+			}
+			else {
+				tcpServer->sendTCP("Success", sizeof("Success"));
+			}
 		}
 	}
 }
+
 
 /************************************************************************
  * 2) This function adds a new Professional my receiving all the		*
@@ -202,8 +235,14 @@ void Cinema::addPro(vector<string> inputVec){
 	id = atoi(inputVec.at(2).c_str());
 
 	//Checks that the ID number is a positive Number
-	if(myInputs.checkNegatvie(id) == false){
-		cout << "Failure" << endl;
+	if(id < 0){
+		if(this->c_Type == "UDP"){
+			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
+		}
+		else{
+			this->tcpServer->sendTCP("Failure", sizeof("Failure"));
+		}
+		//cout << "Failure" << endl;
 	}
 	else{
 		age = atoi(inputVec.at(3).c_str());
@@ -218,7 +257,12 @@ void Cinema::addPro(vector<string> inputVec){
 		name = ss.str();
 		int atIndex = getProIndex(id);
 		if(atIndex != - 1){
-			cout << "Failure" << endl;
+			if(this->c_Type == "UDP"){
+				this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
+			}
+			else{
+				this->tcpServer->sendTCP("Failure", sizeof("Failure"));
+			}
 		}
 		else {
 			//Switch case to make each type of Professional
@@ -258,11 +302,17 @@ void Cinema::addPro(vector<string> inputVec){
 			}
 			}
 			if(proPtrList.size() - listSize == 1){
-				cout << "Success" << endl;
+				if(this->c_Type == "UDP"){
+					this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Success");
+				}
+				else{
+					this->tcpServer->sendTCP("Failure", sizeof("Success"));
+				}
 			}
 		}
 	}
 }
+
 
 /************************************************************************
  * 3) This function add a Professional to a certain movie by his ID   	*
@@ -282,10 +332,15 @@ void Cinema::addProToMovie(string code, int id){
 	}
 	//If the movie does not exist print error messages
 	else {
-		cout << "Failure" << endl;
+		//cout << "Failure" << endl;
+		if(this->c_Type == "UDP"){
+			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
+		}
+		else{
+			this->tcpServer->sendTCP("Failure", sizeof("Failure"));
+		}
 	}
 }
-
 
 
 /************************************************************************
@@ -303,9 +358,15 @@ void Cinema::addGenreToMovie(vector<string> vecInput){
 	}
 	//Else print an error message
 	else{
-		cout << "Failure" << endl;
+		if(this->c_Type == "UDP"){
+			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
+		}
+		else{
+			this->tcpServer->sendTCP("Failure", sizeof("Failure"));
+		}
 	}
 }
+
 
 /************************************************************************
  * 5) This function will sort the Professionals of a given movie		*
@@ -321,9 +382,15 @@ void Cinema::sortPros(string code, int sortOption){
 	}
 	//If the movie doesn't exist
 	else {
-		cout << "Failure" << endl;
+		if(this->c_Type == "UDP"){
+			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
+		}
+		else{
+			this->tcpServer->sendTCP("Failure", sizeof("Failure"));
+		}
 	}
 }
+
 
 /************************************************************************
  * 6) This function prints the list of Professionals of a certain movie	*
@@ -337,7 +404,12 @@ void Cinema::printProsOfMovie(std::string code){
 		movies.at(movieIndex).printAllPros();
 	}
 	else{
-		cout << "Failure" << endl;
+		if(this->c_Type == "UDP"){
+			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
+		}
+		else{
+			this->tcpServer->sendTCP("Failure", sizeof("Failure"));
+		}
 	}
 }
 
@@ -355,9 +427,16 @@ void Cinema::printMovie(string code){
 	}
 	//If it doesn't then print error message
 	else{
-		cout << "Failure" << endl;
+		//cout << "Failure" << endl;
+		if(this->c_Type == "UDP"){
+			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
+		}
+		else{
+			this->tcpServer->sendTCP("Failure", sizeof("Failure"));
+		}
 	}
 }
+
 
 /************************************************************************
  * This function will find the index of a Professional by iterating		*
@@ -390,9 +469,6 @@ int Cinema::getMovieIndex(string code){
 	}
 	return -1;
 }
-
-
-
 
 
 /************************************************************************
@@ -429,8 +505,15 @@ void Cinema::joinMovies(vector<string> inputVector){
 			indecies.push_back(tempIndex);
 		}
 		else{
-			cout << "Failure" << endl;
+			//cout << "Failure" << endl;
 			cont = false;
+			if(this->c_Type == "UDP"){
+				this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
+			}
+			else{
+				this->tcpServer->sendTCP("Failure", sizeof("Failure"));
+			}
+
 			break;
 		}
 	}
@@ -519,7 +602,14 @@ void Cinema::joinMovies(vector<string> inputVector){
 		movies.push_back(jointMovie);
 		//Checks if the new Movie as been added to the Movie List
 		if(movies.size() - size == 1){
-			cout << "Success" << endl;
+			//cout << "Success" << endl;
+			if(this->c_Type == "UDP"){
+				this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Success");
+			}
+			else{
+				this->tcpServer->sendTCP("Failure", sizeof("Success"));
+			}
+
 		}
 	}
 }
@@ -541,11 +631,15 @@ void Cinema::printMoviesByPro(int id){
 	}
 
 	if(printed == false){
-		cout << "Failure" << endl;
+		//cout << "Failure" << endl;
+		if(this->c_Type == "UDP"){
+			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
+		}
+		else{
+			this->tcpServer->sendTCP("Failure", sizeof("Failure"));
+		}
 	}
 }
-
-
 
 
 /************************************************************************
@@ -564,7 +658,13 @@ void Cinema::removeMovie(string code){
 	else {
 		movies.erase(movies.begin() + index);
 		if(size - movies.size() == 1){
-			cout << "Success" << endl;
+			//cout << "Success" << endl;
+			if(this->c_Type == "UDP"){
+				this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Success");
+			}
+			else{
+				this->tcpServer->sendTCP("Failure", sizeof("Success"));
+			}
 		}
 	}
 }
@@ -578,14 +678,20 @@ void Cinema::removeProfessional(int id){
 	int size = proPtrList.size();
 
 	//Checks if the Pro exists in the List
-	//if it doen't then print Failure
+	//if it doesn't then print Failure
 	if(index == -1){
-		cout << "Failure" << endl;
+		//cout << "Failure" << endl;
+		if(this->c_Type == "UDP"){
+			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
+		}
+		else{
+			this->tcpServer->sendTCP("Failure", sizeof("Failure"));
+		}
 	}
 	//If it does then remove it
 	else {
 		if(proPtrList.at(index)->getNumMovies() > 0){
-			//Runs through the Movies and removes the Professinal from them
+			//Runs through the Movies and removes the Professional from them
 			vector<Movie>::iterator it;
 			for(it = movies.begin(); it != movies.end(); it++){
 				if(it->getProIndex(id) != -1){
@@ -597,7 +703,13 @@ void Cinema::removeProfessional(int id){
 		proPtrList.erase(proPtrList.begin() + index);
 
 		if(size - proPtrList.size() == 1){
-			cout << "Success" << endl;
+			//cout << "Success" << endl;
+			if(this->c_Type == "UDP"){
+				this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Success");
+			}
+			else{
+				this->tcpServer->sendTCP("Failure", sizeof("Success"));
+			}
 		}
 	}
 }
@@ -614,11 +726,16 @@ void Cinema::removeProFromMovie(string code, int id){
 		this->movies.at(movieIndex).removePro(id, 1);
 	}
 	else {
-		cout << "Failure" << endl;
+		//cout << "Failure" << endl;
+		if(this->c_Type == "UDP"){
+			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
+		}
+		else{
+			this->tcpServer->sendTCP("Failure", sizeof("Failure"));
+		}
 	}
 
 }
-
 
 
 /************************************************************************
@@ -666,7 +783,13 @@ void Cinema::printMovieByGenre(string genre){
 		}
 	}
 	if(foundAny == false){
-		cout << "Failure" << endl;
+		//cout << "Failure" << endl;
+		if(this->c_Type == "UDP"){
+			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
+		}
+		else{
+			this->tcpServer->sendTCP("Failure", sizeof("Failure"));
+		}
 	}
 }
 
