@@ -13,7 +13,6 @@
 #include "Professionals.h"
 #include "UDPServer.h"
 #include "TCPServer.h"
-#define IP_ADDRESS "127.0.0.1"
 
 class Cinema{
 
@@ -25,6 +24,8 @@ protected:
 	Inputs myInputs;
 	UDPServer* udpServer;
 	TCPServer* tcpServer;
+	int newPort;
+	std::string c_Type;
 
 
 public:
