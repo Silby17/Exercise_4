@@ -11,6 +11,8 @@
 #include "Inputs.h"
 #include <vector>
 #include "Professionals.h"
+#include "UDPServer.h"
+#define IP_ADDRESS "127.0.0.1"
 
 class Cinema{
 
@@ -20,6 +22,7 @@ protected:
 	std::vector<Professionals*> proPtrList;
 	std::vector<std::string> usrInput;
 	Inputs myInputs;
+	UDPServer* udpServer;
 
 
 public:
@@ -28,11 +31,12 @@ public:
 	 ************************************************************************/
 	Cinema();
 
+	UDPServer* makeUDP(string type, int port);
 
 	/************************************************************************
 	 * This function will start the running of the Program					*
 	 ************************************************************************/
-	void runCinema();
+	void runCinema(std::string type, int port);
 
 
 	/************************************************************************
