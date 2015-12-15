@@ -6,6 +6,8 @@
 
 class TCP: public udpTcpParent{
 
+protected:
+    int client_sock;
 public:
 
     /************************************************************************
@@ -29,7 +31,7 @@ public:
     /************************************************************************
 	 * This will receive the info from the TCP Server                       *
 	 ************************************************************************/
-    void receiveTCP();
+    std::string receiveTCP();
 
 };
 
