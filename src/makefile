@@ -1,2 +1,2 @@
 all:
-	g++  *.cpp -lm -ansi -pedantic -lpthread -o server.out
+	g++  *.cpp -lm -ansi -pedantic -lpthread -Wno-write-strings -o a.out
