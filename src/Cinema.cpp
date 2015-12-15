@@ -44,7 +44,6 @@ void Cinema::runCinema(string type, int port){
 
 	while(running){
 		usrInput = udpServer->receiveFrom();
-		udpServer->sendTo()
 		inputVec = myInputs.getInputVector(usrInput);
 
 		option = atoi(inputVec.at(0).c_str());
