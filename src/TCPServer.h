@@ -1,14 +1,18 @@
+/****************************************
+* Yossi Silberhaft & Nava Shemoul		*
+* Exercise 4							*
+* File: TCPServer.h 					*
+****************************************/
 #ifndef EXERCISE_4_TCPSERVER_H
 #define EXERCISE_4_TCPSERVER_H
 
 #include "TCP.h"
-
 using namespace std;
 
+
 class TCPServer: public TCP {
-
-
 public:
+
 
     /************************************************************************
 	 * This is the TCPServer Class constructor		        				*
@@ -39,7 +43,6 @@ public:
 	 ************************************************************************/
     void acceptTCP();
 
-
-
 };
+
 #endif
