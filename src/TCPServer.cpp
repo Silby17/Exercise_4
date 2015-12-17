@@ -55,13 +55,13 @@ void TCPServer::acceptTCP(){
     //will contain client ip address and port number
     struct sockaddr_in client_sin;
     unsigned int addr_len = sizeof(client_sin);
-    //TODO remove prints here
-    cout << "Before accept" << endl;
+
     //returns a dedicated socket descriptor to communicate with the client
     t_client_sock = accept(this->sock, (struct sockaddr *) &client_sin, &addr_len);
+
     if (t_client_sock < 0) {
         cout << "Error Accepting Client Socket < 0\n";
     }
-    cout << "After accept" << endl;
+
     this->sock = t_client_sock;
 }
