@@ -1,5 +1,5 @@
 /****************************************
- * Yossi Silberhaft						*
+ * Yossi Silberhaft & Nava Shemoul		*
  * Exercise 3							*
  * File: Cinema.cpp						*
  ****************************************/
@@ -29,6 +29,7 @@ Cinema::Cinema(){}
  * the necessary server													*
  ************************************************************************/
 void Cinema::runCinema(string type, int port){
+	//Sets the Type or server/client we are using
 	this->c_Type = type;
 	int running = 1;
 	int option;
@@ -36,6 +37,8 @@ void Cinema::runCinema(string type, int port){
 	string usrInput;
 	vector<string> inputVec;
 
+    //Checks what server we are using
+    //and then creates it
 	if(this->c_Type == "TCP"){
 		this->tcpServer = makeTCP(port);
 	}
@@ -43,6 +46,7 @@ void Cinema::runCinema(string type, int port){
 		this->udpServer = makeUDP(port);
 	}
 
+    //This is where the run loop of the program happens
 	while(running){
 		if(this->c_Type == "TCP"){
 			usrInput = tcpServer->receiveTCP();
@@ -174,10 +178,12 @@ void Cinema::addMovie(vector<string> inputVector){
 	code = inputVector.at(1);
 	size = inputVector.size();
 
-	//Checks if the movie Exists
+    len = atoi(inputVector.at(3).c_str());
+
+    //Checks if the movie Exists
 	int atIndex = getMovieIndex(code);
-	if(atIndex != -1){
-		//If it does exist
+	if(atIndex != -1 || len < 0){
+		//If the movie already exists in the list
 		if(this->c_Type == "UDP"){
 			udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
 			//cout << "Failure" << endl;
@@ -190,7 +196,6 @@ void Cinema::addMovie(vector<string> inputVector){
 	else {
 		//Placing the details into their variables
 		name = inputVector.at(2);
-		len = atoi(inputVector.at(3).c_str());
 		year = atoi(inputVector.at(4).c_str());
 		rating = atof(inputVector.at(5).c_str());
 
@@ -233,9 +238,12 @@ void Cinema::addPro(vector<string> inputVec){
 
 	type = atoi(inputVec.at(1).c_str());
 	id = atoi(inputVec.at(2).c_str());
+    age = atoi(inputVec.at(3).c_str());
+    description = inputVec.at(4);
+    gender = inputVec.at(5);
 
 	//Checks that the ID number is a positive Number
-	if(id < 0){
+	if(id < 0 || age < 0){
 		if(this->c_Type == "UDP"){
 			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
 		}
@@ -245,10 +253,6 @@ void Cinema::addPro(vector<string> inputVec){
 		//cout << "Failure" << endl;
 	}
 	else{
-		age = atoi(inputVec.at(3).c_str());
-		description = inputVec.at(4);
-		gender = inputVec.at(5);
-
 		int size = inputVec.size();
 		stringstream ss;
 		for(int i = 6; i != size; i++){
@@ -303,10 +307,12 @@ void Cinema::addPro(vector<string> inputVec){
 			}
 			if(proPtrList.size() - listSize == 1){
 				if(this->c_Type == "UDP"){
-					this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Success");
+					this->udpServer->sendTo(IP_ADDRESS,
+                                            this->newPort, "Success");
 				}
 				else{
-					this->tcpServer->sendTCP("Failure", sizeof("Success"));
+					this->tcpServer->sendTCP("Success",
+                                             sizeof("Success"));
 				}
 			}
 		}
@@ -323,7 +329,7 @@ void Cinema::addProToMovie(string code, int id){
 	int movieIndex = getMovieIndex(code);
 	int proIndex = getProIndex(id);
 
-	//If the movie does exist then add the pro to the movie
+	//Checks that both the movie and the professional exist
 	if(movieIndex != -1 && proIndex != -1){
 		//Checks that the Professional is not already in that movie
 		if(movies.at(movieIndex).getProIndex(id) == -1){
@@ -607,7 +613,7 @@ void Cinema::joinMovies(vector<string> inputVector){
 				this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Success");
 			}
 			else{
-				this->tcpServer->sendTCP("Failure", sizeof("Success"));
+				this->tcpServer->sendTCP("Success", sizeof("Success"));
 			}
 
 		}
@@ -650,7 +656,7 @@ void Cinema::removeMovie(string code){
 	int size = movies.size();
 
 	//Checks if the movie is in the Movie List
-	//if it doen't then print Failure
+	//if it doesn't then print Failure
 	if(index == -1){
 		cout << "Failure" << endl;
 	}
@@ -663,7 +669,7 @@ void Cinema::removeMovie(string code){
 				this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Success");
 			}
 			else{
-				this->tcpServer->sendTCP("Failure", sizeof("Success"));
+				this->tcpServer->sendTCP("Success", sizeof("Success"));
 			}
 		}
 	}
@@ -708,7 +714,7 @@ void Cinema::removeProfessional(int id){
 				this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Success");
 			}
 			else{
-				this->tcpServer->sendTCP("Failure", sizeof("Success"));
+				this->tcpServer->sendTCP("Success", sizeof("Success"));
 			}
 		}
 	}
@@ -793,6 +799,7 @@ void Cinema::printMovieByGenre(string genre){
 	}
 }
 
+
 /************************************************************************
  * Returns the List of movies											*
  ************************************************************************/
@@ -808,7 +815,8 @@ vector<Professionals*> Cinema::getProList(){
 	return proPtrList;
 }
 
-/*************************************************************************
- * This is a destructor of a Cinema                                  *
+
+/************************************************************************
+ * This is a destructor of a Cinema                                     *
  ************************************************************************/
 Cinema::~Cinema(){}
