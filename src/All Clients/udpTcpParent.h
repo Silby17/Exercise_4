@@ -1,5 +1,5 @@
 /****************************************
- * Yossi Silberhaft						*
+ * Yossi Silberhaft & Nava Shemoul						*
  * Exercise 4							*
  * File: udpTcpParent.h 				*
  ****************************************/
@@ -15,7 +15,7 @@
 #include <unistd.h>
 #include <iostream>
 using namespace std;
-#define BUFFER_SIZE 10000
+#define BUFFER_SIZE 4096
 
 
 class udpTcpParent{

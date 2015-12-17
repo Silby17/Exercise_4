@@ -28,5 +28,6 @@ void TCPClient::connectTCP(unsigned int server_port, char *ip_address) {
     //makes the connection return error if connection not made
     if (connect(sock, (struct sockaddr *) &sin, sizeof(sin)) < 0) {
         cout << "error. connecting Tcp client\n";
+        exit(1);
     }
 }

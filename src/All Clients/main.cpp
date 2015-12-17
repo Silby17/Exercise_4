@@ -6,7 +6,7 @@
 #include "TCP.h"
 #include "TCPClient.h"
 #include "UDPClient.h"
-#define BUFFER_SIZE 10000
+
 
 using namespace std;
 
@@ -16,9 +16,10 @@ int main(int argc, char **argv) {
     int port = atoi(argv[3]);
     bool run = true;
     string output;
-    string str;
+    string received;
     char *cstr = new char[ip.length() + 1];
     strcpy(cstr, ip.c_str());
+
 
     if(type == "UDP"){
         UDPClient* udpClient = new UDPClient;
@@ -28,11 +29,10 @@ int main(int argc, char **argv) {
             char data[BUFFER_SIZE];
             cin.getline(data, BUFFER_SIZE);
             int data_len = sizeof(data);
-            udpClient->sendTo(cstr, port, data);
             if(data[0] == '-' && data[1] == '1'){
                 run = false;
-                break;
             }
+            udpClient->sendTo(cstr, port, data);
             output = udpClient->receiveFrom();
             if(output.size() > 0){
                 cout << output << endl;
@@ -49,12 +49,12 @@ int main(int argc, char **argv) {
             char data[BUFFER_SIZE];
             cin.getline(data, BUFFER_SIZE);
             int data_len = sizeof(data);
-
-            tcpClient->sendTCP(data, data_len);
             if(data[0] == '-' && data[1] == '1'){
                 run = false;
-                break;
             }
+            tcpClient->sendTCP(data, data_len);
+            received = tcpClient->receiveTCP();
+            cout << received << endl;
         }
         tcpClient->closeConnection();
     }
