@@ -22,7 +22,7 @@ void TCP::sendTCP(char *data, unsigned int data_len) {
 
 }
 
-void TCP::receiveTCP() {
+string TCP::receiveTCP() {
     char buffer[BUFFER_SIZE];
     int expected_data_len = sizeof(buffer);
 
@@ -32,13 +32,17 @@ void TCP::receiveTCP() {
     //if no bytes connection closed
     if (read_bytes == 0) {
         cout << "connection is closed\n";
+        closeConnection();
     }
     //error bytes < 0
     else if (read_bytes < 0) {
         cout << "error. not enough bytes read";
+        closeConnection();
     }
-        //prints recieved buffer
+        //prints received buffer
     else {
-        cout << "Received data : " << buffer << endl;
+        string received(buffer);
+        return received;
     }
+
 }
