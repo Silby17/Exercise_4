@@ -1,9 +1,8 @@
 /****************************************
- * Yossi Silberhaft & Nava Shemoul						*
+ * Yossi Silberhaft & Nava Shemoul		*
  * Exercise 4							*
  * File: UDPClient.h     				*
  ****************************************/
-
 #ifndef UDPCLIENT_H
 #define UDPCLIENT_H
 #include "UDP.h"

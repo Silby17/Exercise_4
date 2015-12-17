@@ -1,3 +1,8 @@
+/****************************************
+ * Yossi Silberhaft & Nava Shemoul		*
+ * Exercise 4							*
+ * File: TCPClient.cpp					*
+ ****************************************/
 #include "TCPClient.h"
 
 

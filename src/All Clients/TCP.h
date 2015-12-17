@@ -1,4 +1,8 @@
-
+/****************************************
+ * Yossi Silberhaft & Nava Shemoul		*
+ * Exercise 4							*
+ * File: TCP.h  						*
+ ****************************************/
 #ifndef EXERCISE_4_TCP_H
 #define EXERCISE_4_TCP_H
 #include "udpTcpParent.h"

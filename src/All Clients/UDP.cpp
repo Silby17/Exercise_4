@@ -1,5 +1,5 @@
 /****************************************
- * Yossi Silberhaft & Nava Shemoul						*
+ * Yossi Silberhaft & Nava Shemoul		*
  * Exercise 4							*
  * File: UDP.p          				*
  ****************************************/
@@ -15,6 +15,7 @@ UDP::UDP() { }
 * This is the UDP class destructor      						    	*
 ************************************************************************/
 UDP::~UDP() { }
+
 
 /************************************************************************
 * This function will receive an IP Address and a port number            *
@@ -58,6 +59,9 @@ string UDP::receiveFrom() {
 }
 
 
+/************************************************************************
+ * This function will return the port number                            *
+ ***********************************************************************/
 int UDP::getPortNumber() {
     return this->port;
 }

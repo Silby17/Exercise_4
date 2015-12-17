@@ -1,3 +1,8 @@
+/****************************************
+ * Yossi Silberhaft & Nava Shemoul		*
+ * Exercise 4							*
+ * File: TCPClient.h					*
+ ****************************************/
 #ifndef TCPCLIENT_H
 #define TCPCLIENT_H
 

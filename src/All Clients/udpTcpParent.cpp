@@ -1,5 +1,5 @@
 /****************************************
- * Yossi Silberhaft & Nava Shemoul						*
+ * Yossi Silberhaft & Nava Shemoul		*
  * Exercise 4							*
  * File: udpTcpParent.cpp				*
  ****************************************/
@@ -34,6 +34,7 @@ void udpTcpParent::newSocket(int sock_type) {
     }
 
 }
+
 
 /************************************************************************
  * This function will close down the connection that was made           *
