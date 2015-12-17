@@ -1,3 +1,8 @@
+/****************************************
+ * Yossi Silberhaft & Nava Shemoul		*
+ * Exercise 3							*
+ * File: Inputs.cpp						*
+ ****************************************/
 #ifndef IO_H
 #define IO_H
 #include <iostream>

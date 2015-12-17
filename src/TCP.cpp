@@ -1,5 +1,5 @@
 /****************************************
- * Yossi Silberhaft						*
+ * Yossi Silberhaft & Nava Shemoul						*
  * Exercise 4							*
  * File: TCP.cpp          				*
  ****************************************/
@@ -22,7 +22,6 @@ TCP::~TCP() { }
 ************************************************************************/
 void TCP::sendTCP(char *data, unsigned int data_len) {
     int sent_bytes = send(sock, data, data_len, 0);
-
     if(sent_bytes < 0){
         perror("Sent bytes < 0\n");
     }

@@ -1,5 +1,5 @@
 /****************************************
- * Yossi Silberhaft						*
+ * Yossi Silberhaft & Nava Shemoul						*
  * Exercise 4							*
  * File: UDP.h          				*
  ****************************************/

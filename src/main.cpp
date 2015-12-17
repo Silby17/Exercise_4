@@ -1,6 +1,8 @@
 /* 89-210-04 210028924 Yossi Silberhaft*/
+/*89-210-04 204256416 Nava Shemoul*/
+
 /****************************************
- * Yossi Silberhaft						*
+ * Yossi Silberhaft & Nava Shemoul		*
  * Exercise 4							*
  * File: main.cpp						*
  ****************************************/

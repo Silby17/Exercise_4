@@ -1,5 +1,5 @@
 /****************************************
- * Yossi Silberhaft						*
+ * Yossi Silberhaft & Nava Shemoul						*
  * Exercise 3							*
  * FIle: Actor.h							*
  ****************************************/
