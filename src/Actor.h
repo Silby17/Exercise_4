@@ -20,7 +20,7 @@ public:
 	/************************************************************************
 	 * This function will print all the information of the Actor			*
 	 ************************************************************************/
-	void printInfo();
+	std::string printInfo();
 
 	/************************************************************************
 	 * This is the Actor Destructor										*
