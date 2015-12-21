@@ -15,7 +15,7 @@ public:
 	/************************************************************************
 	 * This function will print all the information of the Screenwriter	*
 	 ************************************************************************/
-	void printInfo();
+	std::string printInfo();
 
 	~Screenwriter();
 };
