@@ -21,10 +21,10 @@ Producer::Producer(int type, int id, int age, string desc,
 /************************************************************************
  * This function prints out the Producer in its correct format			*
  ************************************************************************/
-void Producer::printInfo(){
+std::string Producer::printInfo(){
 	string fullOutput = this->getName();
-
-	cout << fullOutput << endl;
+	return fullOutput;
+	//cout << fullOutput << endl;
 }
 
 
