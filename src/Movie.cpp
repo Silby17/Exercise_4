@@ -217,7 +217,7 @@ string Movie::removePro(int id, int flag){
 
 }
 /************************************************************************
- * Prints all the Professionals of the chosen movie		*
+ * Prints all the Professionals of the chosen movie	                	*
  ************************************************************************/
 string Movie::printAllPros(){
 	string print;
