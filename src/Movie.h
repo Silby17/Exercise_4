@@ -37,9 +37,9 @@ public:
 	/************************************************************************
 	 * This function will print the movie									*
 	 ************************************************************************/
-	void printMovie();
+	std::string printMovie();
 
-	void addPro(Professionals* proTo, int flag);
+	std::string addPro(Professionals* proTo, int flag);
 
 
 	int getProIndex(int id);
@@ -47,12 +47,12 @@ public:
 	/************************************************************************
 	 * Removes a professional by using his ID								*
 	 ************************************************************************/
-	void removePro(int id, int flag);
+	std::string removePro(int id, int flag);
 
 	/************************************************************************
 	 * Prints all the Professionals of the chosen movie						*
 	 ************************************************************************/
-	void printAllPros();
+	std::string printAllPros();
 
 	/************************************************************************
 	 * Returns the code of a movie											*
@@ -62,7 +62,7 @@ public:
 	/************************************************************************
 	 * Sorts the Professional according to the chosen option				*
 	 ************************************************************************/
-	void sortPros(int option);
+	std::string sortPros(int option);
 
 	/************************************************************************
 	 * Returns the name of the current Movie								*
@@ -73,7 +73,7 @@ public:
 	/************************************************************************
 	 * This Function adds a genre to the current Movie						*
 	 ************************************************************************/
-	void addGenre(std::string newGenre, int flag);
+	std::string addGenre(std::string newGenre, int flag);
 
 
 	bool checkGenre(std::string genre);
