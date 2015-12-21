@@ -21,11 +21,12 @@ Director::Director(int type, int id, int age, std::string desc,
 /************************************************************************
  * This function will print all the information of the Director			*
  ************************************************************************/
-void Director::printInfo() {
+string Director::printInfo() {
 
 	string fullOut;
 	fullOut = this->getName();
-	cout << fullOut << endl;
+	//cout << fullOut << endl;
+	return fullOut;
 }
 
 
