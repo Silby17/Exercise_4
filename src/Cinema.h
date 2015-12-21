@@ -39,6 +39,11 @@ public:
 	TCPServer* makeTCP(int port);
 
 	/************************************************************************
+ 	 * THis function sends a string to server and server prints it out.     *
+ 	************************************************************************/
+	void printStringByServer(string printMe);
+
+	/************************************************************************
 	 * This function will start the running of the Program					*
 	 ************************************************************************/
 	void runCinema(std::string type, int port);
