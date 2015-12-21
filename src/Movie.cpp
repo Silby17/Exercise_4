@@ -30,7 +30,7 @@ Movie::Movie(string code, string name, int len, int year, double rating,
  * 2) By age from Oldest to youngest									*
  * 3) By the number of movies they appear in from most to least			*
  ************************************************************************/
-void Movie::sortPros(int option){
+string Movie::sortPros(int option){
 	bool finished = false;
 
 	switch(option){
@@ -39,7 +39,8 @@ void Movie::sortPros(int option){
 		IDCompare idCompare;
 		sort(this->mProfessionals.begin(),
 				this->mProfessionals.end(), idCompare);
-		cout << "Success" << endl;
+		//cout << "Success" << endl;
+		return "Success";
 		finished = true;
 		break;
 	}
@@ -48,7 +49,8 @@ void Movie::sortPros(int option){
 		AgeCompare ageCompare;
 		sort(this->mProfessionals.begin(),
 				this->mProfessionals.end(), ageCompare);
-		cout << "Success" << endl;
+		//cout << "Success" << endl;
+		return "Success";
 		finished = true;
 		break;
 	}
@@ -57,13 +59,15 @@ void Movie::sortPros(int option){
 		CntrCompare cntrCompare;
 		sort(this->mProfessionals.begin(),
 				this->mProfessionals.end(), cntrCompare);
-		cout << "Success" << endl;
+		//cout << "Success" << endl;
+		return "Success";
 		finished = true;
 		break;
 	}
 	}
 	if(finished == false){
-		cout << "Failure" << endl;
+		//cout << "Failure" << endl;
+		return "Failure";
 	}
 }
 
@@ -73,7 +77,7 @@ void Movie::sortPros(int option){
  * This function receives the new Professional and adds it to the list	*
  * of Professionals in the current movie								*
  ************************************************************************/
-void Movie::addPro(Professionals* proTo, int flag){
+string Movie::addPro(Professionals* proTo, int flag){
 	int size = mProfessionals.size();
 
 	proTo->incMovieCount();
@@ -83,7 +87,8 @@ void Movie::addPro(Professionals* proTo, int flag){
 	if(flag == 1){
 		//Checks if the size of the list has grown
 		if(mProfessionals.size() - size == 1){
-			cout << "Success" << endl;
+			//cout << "Success" << endl;
+			return "Success";
 		}
 	}
 }
@@ -93,7 +98,7 @@ void Movie::addPro(Professionals* proTo, int flag){
  * This function will add the Genre to the movie by adding the Genre	*
  * that was passed as a string to the list of genres in the movie		*
  ************************************************************************/
-void Movie::addGenre(string newGenre, int flag){
+string Movie::addGenre(string newGenre, int flag){
 	int size = mGenre.size();
 
 	//Add the new Genre to the vector of Genres
@@ -102,10 +107,12 @@ void Movie::addGenre(string newGenre, int flag){
 	if(flag == 1){
 		//Checks that the list has grown after insertion
 		if(mGenre.size() - size == 1){
-			cout << "Success" << endl;
+			//cout << "Success" << endl;
+			return "Success";
 		}
 		else {
-			cout << "Failure" << endl;
+			//cout << "Failure" << endl;
+			return "Failure";
 		}
 	}
 
@@ -117,31 +124,38 @@ void Movie::addGenre(string newGenre, int flag){
  * and for the Genres it will iterate through the list of Genres		*
  * and print them in their correct form									*
  ************************************************************************/
-void Movie::printMovie(){
+ string Movie::printMovie(){
 
 	//Starts printing the first part of the movie members
-	cout << mCode << " " << mName << " " << mLength << " "
-			<< mYear  << " " << mRating << " ";
+	string print = mCode + " " + mName + " " + to_string(mLength) + " "
+			+ to_string(mYear)  + " " + to_string(mRating) + " ";
 
 	if(mGenre.size() == 1){
-		cout << mGenre.at(0) << " ";
+		//cout << mGenre.at(0) << " ";
+		print = print + mGenre.at(0) + " ";
 	}
 	else if(mGenre.size() > 1){
-		cout << mGenre.at(0);
+		//cout << mGenre.at(0);
+		print = print + mGenre.at(0);
 		vector<string>::iterator it;
 		for(it = mGenre.begin() + 1; it != mGenre.end(); it++){
-			cout << "," << *it;
+			//cout << "," << *it;
+			print = print +  "," + *it;
 		}
-		cout << " ";
+		//cout << " ";
+		print = print + " ";
 	}
 
-	cout << mSummary << endl;
+	//cout << mSummary << endl;
+	print = print + mSummary;
 
 	//Now to print the Professionals of the current movie
 	vector<Professionals*>::iterator it2;
 	for(it2 = mProfessionals.begin(); it2  != mProfessionals.end(); it2++){
-		(*it2)->printInfo();
+		//(*it2)->printInfo();
+		print = print + (*it2)->printInfo();
 	}
+	return print;
 }
 
 
@@ -180,7 +194,7 @@ bool Movie::checkGenre(string genre){
  * This function will get the ID of a professional and remove them from	*
  * the list of professionals of this movie								*
  ************************************************************************/
-void Movie::removePro(int id, int flag){
+string Movie::removePro(int id, int flag){
 	int index = getProIndex(id);
 	int size = getProListSize();
 
@@ -191,10 +205,12 @@ void Movie::removePro(int id, int flag){
 	//If we are deleting the Pro only from the Current Movie
 	if(flag == 1){
 		if(size - getProListSize() == 1){
-			cout << "Success" << endl;
+			//cout << "Success" << endl;
+			return "Success";
 		}
 		else {
-			cout << "failure" << endl;
+			//cout << "failure" << endl;
+			return "Failure";
 		}
 	}
 
@@ -203,11 +219,13 @@ void Movie::removePro(int id, int flag){
 /************************************************************************
  * Prints all the Professionals of the chosen movie		*
  ************************************************************************/
-void Movie::printAllPros(){
+string Movie::printAllPros(){
+	string print;
 	if(mProfessionals.size() != 0){
 		vector<Professionals*>::iterator it;
 		for(it = mProfessionals.begin(); it != mProfessionals.end(); it++){
-			(*it)->printInfo();
+			//(*it)->printInfo();
+			print = print + (*it)->printInfo();
 		}
 	}
 	else{}
