@@ -24,6 +24,23 @@ Cinema::Cinema(){}
 
 
 /************************************************************************
+ * THis function sends a string to server and server prints it out.     *
+ ************************************************************************/
+void Cinema::printStringByServer(string printMe) {
+	if(this->c_Type == "UDP"){
+		this->udpServer->sendTo(IP_ADDRESS, this->newPort,printMe);
+	}
+	else{
+		//converts string to char*
+		char *y1 = new char[printMe.length() + 1];
+		strcpy(y1, printMe.c_str());
+
+		this->tcpServer->sendTCP( y1, sizeof( printMe));
+	}
+}
+
+
+/************************************************************************
  * This function is responsible for the constant running of the program	*
  * it will receive a Type and port which will be used to create			*
  * the necessary server													*
@@ -183,7 +200,10 @@ void Cinema::addMovie(vector<string> inputVector){
     //Checks if the movie Exists
 	int atIndex = getMovieIndex(code);
 	if(atIndex != -1 || len < 0){
+
+		printStringByServer("Failure");
 		//If the movie already exists in the list
+		/*
 		if(this->c_Type == "UDP"){
 			udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
 			//cout << "Failure" << endl;
@@ -191,6 +211,7 @@ void Cinema::addMovie(vector<string> inputVector){
 		else{
 			tcpServer->sendTCP("Failure", sizeof("Failure"));
 		}
+		 */
 	}
 	//If it doesn't exist and it returns -1 then add the Movie
 	else {
@@ -216,12 +237,15 @@ void Cinema::addMovie(vector<string> inputVector){
 		//Checks that the Movie was added to the list
 		if(movies.size() - vectorSize == 1){
 			//cout << "Success" << endl;
+			printStringByServer("Success");
+			/*
 			if(this->c_Type == "UDP"){
 				udpServer->sendTo(IP_ADDRESS, this->newPort, "Success");
 			}
 			else {
 				tcpServer->sendTCP("Success", sizeof("Success"));
 			}
+			 */
 		}
 	}
 }
@@ -244,6 +268,8 @@ void Cinema::addPro(vector<string> inputVec){
 
 	//Checks that the ID number is a positive Number
 	if(id < 0 || age < 0){
+		printStringByServer("Failure");
+		/*
 		if(this->c_Type == "UDP"){
 			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
 		}
@@ -251,6 +277,7 @@ void Cinema::addPro(vector<string> inputVec){
 			this->tcpServer->sendTCP("Failure", sizeof("Failure"));
 		}
 		//cout << "Failure" << endl;
+		 */
 	}
 	else{
 		int size = inputVec.size();
@@ -261,12 +288,15 @@ void Cinema::addPro(vector<string> inputVec){
 		name = ss.str();
 		int atIndex = getProIndex(id);
 		if(atIndex != - 1){
+			printStringByServer("Failure");
+			/*
 			if(this->c_Type == "UDP"){
 				this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
 			}
 			else{
 				this->tcpServer->sendTCP("Failure", sizeof("Failure"));
 			}
+			 */
 		}
 		else {
 			//Switch case to make each type of Professional
@@ -306,6 +336,8 @@ void Cinema::addPro(vector<string> inputVec){
 			}
 			}
 			if(proPtrList.size() - listSize == 1){
+				printStringByServer("Success");
+				/*
 				if(this->c_Type == "UDP"){
 					this->udpServer->sendTo(IP_ADDRESS,
                                             this->newPort, "Success");
@@ -314,6 +346,7 @@ void Cinema::addPro(vector<string> inputVec){
 					this->tcpServer->sendTCP("Success",
                                              sizeof("Success"));
 				}
+				 */
 			}
 		}
 	}
@@ -339,12 +372,15 @@ void Cinema::addProToMovie(string code, int id){
 	//If the movie does not exist print error messages
 	else {
 		//cout << "Failure" << endl;
+		printStringByServer("Failure");
+		/*
 		if(this->c_Type == "UDP"){
 			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
 		}
 		else{
 			this->tcpServer->sendTCP("Failure", sizeof("Failure"));
 		}
+		 */
 	}
 }
 
@@ -364,12 +400,15 @@ void Cinema::addGenreToMovie(vector<string> vecInput){
 	}
 	//Else print an error message
 	else{
+		printStringByServer("Failure");
+		/*
 		if(this->c_Type == "UDP"){
 			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
 		}
 		else{
 			this->tcpServer->sendTCP("Failure", sizeof("Failure"));
 		}
+		 */
 	}
 }
 
@@ -388,12 +427,15 @@ void Cinema::sortPros(string code, int sortOption){
 	}
 	//If the movie doesn't exist
 	else {
+		printStringByServer("Failure");
+		/*
 		if(this->c_Type == "UDP"){
 			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
 		}
 		else{
 			this->tcpServer->sendTCP("Failure", sizeof("Failure"));
 		}
+		 */
 	}
 }
 
@@ -410,12 +452,14 @@ void Cinema::printProsOfMovie(std::string code){
 		movies.at(movieIndex).printAllPros();
 	}
 	else{
+		/*
 		if(this->c_Type == "UDP"){
 			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
 		}
 		else{
 			this->tcpServer->sendTCP("Failure", sizeof("Failure"));
 		}
+		 */
 	}
 }
 
@@ -433,6 +477,8 @@ void Cinema::printMovie(string code){
 	}
 	//If it doesn't then print error message
 	else{
+		printStringByServer("Failure");
+		/*
 		//cout << "Failure" << endl;
 		if(this->c_Type == "UDP"){
 			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
@@ -440,6 +486,7 @@ void Cinema::printMovie(string code){
 		else{
 			this->tcpServer->sendTCP("Failure", sizeof("Failure"));
 		}
+		 */
 	}
 }
 
@@ -513,13 +560,15 @@ void Cinema::joinMovies(vector<string> inputVector){
 		else{
 			//cout << "Failure" << endl;
 			cont = false;
+			printStringByServer("Failure");
+			/*
 			if(this->c_Type == "UDP"){
 				this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
 			}
 			else{
 				this->tcpServer->sendTCP("Failure", sizeof("Failure"));
 			}
-
+*/
 			break;
 		}
 	}
@@ -609,12 +658,15 @@ void Cinema::joinMovies(vector<string> inputVector){
 		//Checks if the new Movie as been added to the Movie List
 		if(movies.size() - size == 1){
 			//cout << "Success" << endl;
+			printStringByServer("Success");
+			/*
 			if(this->c_Type == "UDP"){
 				this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Success");
 			}
 			else{
 				this->tcpServer->sendTCP("Success", sizeof("Success"));
 			}
+			 */
 
 		}
 	}
@@ -638,12 +690,15 @@ void Cinema::printMoviesByPro(int id){
 
 	if(printed == false){
 		//cout << "Failure" << endl;
+		printStringByServer("Success");
+		/*
 		if(this->c_Type == "UDP"){
 			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
 		}
 		else{
 			this->tcpServer->sendTCP("Failure", sizeof("Failure"));
 		}
+		 */
 	}
 }
 
@@ -658,19 +713,23 @@ void Cinema::removeMovie(string code){
 	//Checks if the movie is in the Movie List
 	//if it doesn't then print Failure
 	if(index == -1){
-		cout << "Failure" << endl;
+		//cout << "Failure" << endl;
+		printStringByServer("Failure");
 	}
 	//if it is then remove the movie
 	else {
 		movies.erase(movies.begin() + index);
 		if(size - movies.size() == 1){
 			//cout << "Success" << endl;
+			printStringByServer("Success");
+			/*
 			if(this->c_Type == "UDP"){
 				this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Success");
 			}
 			else{
 				this->tcpServer->sendTCP("Success", sizeof("Success"));
 			}
+			 */
 		}
 	}
 }
@@ -686,13 +745,16 @@ void Cinema::removeProfessional(int id){
 	//Checks if the Pro exists in the List
 	//if it doesn't then print Failure
 	if(index == -1){
+		printStringByServer("Failure");
 		//cout << "Failure" << endl;
+		/*
 		if(this->c_Type == "UDP"){
 			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
 		}
 		else{
 			this->tcpServer->sendTCP("Failure", sizeof("Failure"));
 		}
+		 */
 	}
 	//If it does then remove it
 	else {
@@ -710,12 +772,15 @@ void Cinema::removeProfessional(int id){
 
 		if(size - proPtrList.size() == 1){
 			//cout << "Success" << endl;
+			printStringByServer("Success");
+			/*
 			if(this->c_Type == "UDP"){
 				this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Success");
 			}
 			else{
 				this->tcpServer->sendTCP("Success", sizeof("Success"));
 			}
+			 */
 		}
 	}
 }
@@ -733,12 +798,15 @@ void Cinema::removeProFromMovie(string code, int id){
 	}
 	else {
 		//cout << "Failure" << endl;
+		printStringByServer("Failure");
+		/*
 		if(this->c_Type == "UDP"){
 			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
 		}
 		else{
 			this->tcpServer->sendTCP("Failure", sizeof("Failure"));
 		}
+		 */
 	}
 
 }
@@ -790,12 +858,15 @@ void Cinema::printMovieByGenre(string genre){
 	}
 	if(foundAny == false){
 		//cout << "Failure" << endl;
+		printStringByServer("Failure");
+		/*
 		if(this->c_Type == "UDP"){
 			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
 		}
 		else{
 			this->tcpServer->sendTCP("Failure", sizeof("Failure"));
 		}
+		 */
 	}
 }
 
