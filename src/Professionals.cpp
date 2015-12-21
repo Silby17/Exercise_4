@@ -26,7 +26,7 @@ Professionals::Professionals(int type, int id, int age, std::string desc,
 /************************************************************************
  * Prints all the info of a Professional								*
  ************************************************************************/
-void Professionals::printInfo(){}
+string Professionals::printInfo(){}
 
 
 /************************************************************************
