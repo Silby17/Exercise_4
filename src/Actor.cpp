@@ -21,7 +21,7 @@ Actor::Actor(int type, int id, int age, std::string desc,
 /************************************************************************
  * This function will print all the information of the Actor			*
  ************************************************************************/
-void Actor::printInfo(){
+string Actor::printInfo(){
 	string fullOutput;
 	string age;
 
@@ -30,10 +30,12 @@ void Actor::printInfo(){
 	convert << this->getAge();
 	age = convert.str();
 
+
 	//Puts the string together for output
 	fullOutput = this->getName() + age;
 
-	cout << fullOutput << endl;
+	//cout << fullOutput << endl;
+	return fullOutput;
 }
 
 
