@@ -16,7 +16,7 @@ public:
 	/************************************************************************
 	 * This function will print all the information of the Producer	*
 	 ************************************************************************/
-	void printInfo();
+	std::string printInfo();
 
 
 	~Producer();
