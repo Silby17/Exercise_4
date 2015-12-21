@@ -30,7 +30,7 @@ public:
 	/************************************************************************
 	 * Prints all the info of a Professional according to their ID	*
 	 ************************************************************************/
-	virtual void printInfo();
+	virtual std::string printInfo();
 
 	void incMovieCount();
 
