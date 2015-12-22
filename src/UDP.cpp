@@ -1,5 +1,5 @@
 /****************************************
- * Yossi Silberhaft & Nava Shemoul  	*
+ * Yossi Silberhaft & Nava Shemoul		*
  * Exercise 4							*
  * File: UDP.cpp          				*
  ****************************************/
@@ -58,6 +58,7 @@ string UDP::receiveFrom() {
     else{
         port = ntohs(from.sin_port);
         string str(buffer);
+
         return str;
     }
 }
