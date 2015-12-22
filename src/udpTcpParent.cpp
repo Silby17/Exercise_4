@@ -1,5 +1,5 @@
 /****************************************
- * Yossi Silberhaft & Nava Shemoul						*
+ * Yossi Silberhaft & Nava Shemoul		*
  * Exercise 4							*
  * File: udpTcpParent.cpp				*
  ****************************************/
