@@ -118,9 +118,17 @@ string Movie::addGenre(string newGenre, int flag){
     stream << fixed << setprecision(1) << mRating;
     string rating = stream.str();
 
+    ostringstream convert;
+    convert << mLength;
+    string strLen = convert.str();
+
+    ostringstream convertYear;
+    convertYear << mYear;
+    string strYear = convertYear.str();
+
 	//Starts printing the first part of the movie members
-	string print = mCode + " " + mName + " " + to_string(mLength) + " "
-			+ to_string(mYear)  + " " + rating + " ";
+	string print = mCode + " " + mName + " " + strLen + " "
+			+ strYear  + " " + rating + " ";
 
 	if(mGenre.size() == 1){
 		print = print + mGenre.at(0) + " ";
