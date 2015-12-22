@@ -184,7 +184,7 @@ UDPServer* Cinema::makeUDP(int port){
 
 
 /************************************************************************
- * 1) This function will create a new movie by receiving all the			*
+ * 1) This function will create a new movie by receiving all the		*
  * necessary parameters of a movie										*
  ************************************************************************/
 void Cinema::addMovie(vector<string> inputVector){
@@ -361,14 +361,16 @@ void Cinema::addProToMovie(string code, int id){
 	//Gets the index of the movie and pro in their lists
 	int movieIndex = getMovieIndex(code);
 	int proIndex = getProIndex(id);
+    string result;
 
 	//Checks that both the movie and the professional exist
-	if(movieIndex != -1 && proIndex != -1){
-		//Checks that the Professional is not already in that movie
-		if(movies.at(movieIndex).getProIndex(id) == -1){
-			movies.at(movieIndex).addPro(proPtrList.at(proIndex), 1);
-		}
-	}
+	if(movieIndex != -1 && proIndex != -1) {
+        //Checks that the Professional is not already in that movie
+        if (movies.at(movieIndex).getProIndex(id) == -1) {
+            result = movies.at(movieIndex).addPro(proPtrList.at(proIndex), 1);
+            printStringByServer(result);
+        }
+    }
 	//If the movie does not exist print error messages
 	else {
 		//cout << "Failure" << endl;
@@ -498,7 +500,7 @@ void Cinema::printMovie(string code){
  ************************************************************************/
 int Cinema::getProIndex(int id){
 	vector<Professionals*>::iterator it;
-	for(it = proPtrList.begin(); it < proPtrList.end(); it++){
+	for(it = proPtrList.begin(); it != proPtrList.end(); it++){
 		if((*it)->getID() == id){
 			return it - proPtrList.begin();
 		}
