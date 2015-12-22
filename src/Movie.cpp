@@ -153,12 +153,8 @@ string Movie::addGenre(string newGenre, int flag){
 	vector<Professionals*>::iterator it2;
 	for(it2 = mProfessionals.begin(); it2  != mProfessionals.end(); it2++){
 		//(*it2)->printInfo();
-		if(it2 == mProfessionals.begin()){
 			print = print +"\n" + (*it2)->printInfo();
-		}
-		else{
-			print = print + (*it2)->printInfo();
-		}
+
 
 	}
 	return print;
