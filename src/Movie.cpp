@@ -5,7 +5,6 @@
  ****************************************/
 #include "Movie.h"
 #include "Cinema.h"
-#include <cmath>
 #include <iomanip>
 #include <algorithm>
 #include <sstream>
@@ -42,34 +41,24 @@ string Movie::sortPros(int option){
 		IDCompare idCompare;
 		sort(this->mProfessionals.begin(),
 				this->mProfessionals.end(), idCompare);
-		//cout << "Success" << endl;
 		return "Success";
-		finished = true;
-		break;
 	}
 	case 2:
 	{
 		AgeCompare ageCompare;
 		sort(this->mProfessionals.begin(),
 				this->mProfessionals.end(), ageCompare);
-		//cout << "Success" << endl;
 		return "Success";
-		finished = true;
-		break;
 	}
 	case 3:
 	{
 		CntrCompare cntrCompare;
 		sort(this->mProfessionals.begin(),
 				this->mProfessionals.end(), cntrCompare);
-		//cout << "Success" << endl;
 		return "Success";
-		finished = true;
-		break;
 	}
 	}
 	if(finished == false){
-		//cout << "Failure" << endl;
 		return "Failure";
 	}
 }
@@ -90,7 +79,6 @@ string Movie::addPro(Professionals* proTo, int flag){
 	if(flag == 1){
 		//Checks if the size of the list has grown
 		if(mProfessionals.size() - size == 1){
-			//cout << "Success" << endl;
 			return "Success";
 		}
 	}
@@ -110,15 +98,12 @@ string Movie::addGenre(string newGenre, int flag){
 	if(flag == 1){
 		//Checks that the list has grown after insertion
 		if(mGenre.size() - size == 1){
-			//cout << "Success" << endl;
 			return "Success";
 		}
 		else {
-			//cout << "Failure" << endl;
 			return "Failure";
 		}
 	}
-
 }
 
 
@@ -138,31 +123,25 @@ string Movie::addGenre(string newGenre, int flag){
 			+ to_string(mYear)  + " " + rating + " ";
 
 	if(mGenre.size() == 1){
-		//cout << mGenre.at(0) << " ";
 		print = print + mGenre.at(0) + " ";
 	}
 	else if(mGenre.size() > 1){
-		//cout << mGenre.at(0);
 		print = print + mGenre.at(0);
 		vector<string>::iterator it;
 		for(it = mGenre.begin() + 1; it != mGenre.end(); it++){
-			//cout << "," << *it;
+
 			print = print +  "," + *it;
 		}
-		//cout << " ";
+
 		print = print + " ";
 	}
 
-	//cout << mSummary << endl;
 	print = print + mSummary ;
 
 	//Now to print the Professionals of the current movie
 	vector<Professionals*>::iterator it2;
 	for(it2 = mProfessionals.begin(); it2  != mProfessionals.end(); it2++){
-		//(*it2)->printInfo();
 			print = print +"\n" + (*it2)->printInfo();
-
-
 	}
 	return print;
 }
@@ -214,16 +193,16 @@ string Movie::removePro(int id, int flag){
 	//If we are deleting the Pro only from the Current Movie
 	if(flag == 1){
 		if(size - getProListSize() == 1){
-			//cout << "Success" << endl;
 			return "Success";
 		}
 		else {
-			//cout << "failure" << endl;
 			return "Failure";
 		}
 	}
     return "Done";
 }
+
+
 /************************************************************************
  * Prints all the Professionals of the chosen movie	                	*
  ************************************************************************/
@@ -232,18 +211,15 @@ string Movie::printAllPros(){
 	if(mProfessionals.size() != 0){
 		vector<Professionals*>::iterator it;
 		for(it = mProfessionals.begin(); it != mProfessionals.end(); it++){
-			//(*it)->printInfo();
 			if(it ==  mProfessionals.begin()){
 				print = print + (*it)->printInfo();
 			}
 			else{
 				print = print +"\n" + (*it)->printInfo();
 			}
-
 		}
 	}
 		return print;
-
 }
 
 /************************************************************************
@@ -306,6 +282,7 @@ string Movie::getSummary (){
 vector<string> Movie::getGenreList (){
 	return mGenre;
 }
+
 
 int Movie::getProListSize(){
 	return mProfessionals.size();
