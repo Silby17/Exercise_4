@@ -147,13 +147,19 @@ string Movie::addGenre(string newGenre, int flag){
 	}
 
 	//cout << mSummary << endl;
-	print = print + mSummary;
+	print = print + mSummary ;
 
 	//Now to print the Professionals of the current movie
 	vector<Professionals*>::iterator it2;
 	for(it2 = mProfessionals.begin(); it2  != mProfessionals.end(); it2++){
 		//(*it2)->printInfo();
-		print = print + (*it2)->printInfo();
+		if(it2 == mProfessionals.begin()){
+			print = print +"\n" + (*it2)->printInfo();
+		}
+		else{
+			print = print + (*it2)->printInfo();
+		}
+
 	}
 	return print;
 }
@@ -225,10 +231,17 @@ string Movie::printAllPros(){
 		vector<Professionals*>::iterator it;
 		for(it = mProfessionals.begin(); it != mProfessionals.end(); it++){
 			//(*it)->printInfo();
-			print = print + (*it)->printInfo();
+			if(it ==  mProfessionals.begin()){
+				print = print + (*it)->printInfo();
+			}
+			else{
+				print = print +"\n" + (*it)->printInfo();
+			}
+
 		}
 	}
-	else{}
+		return print;
+
 }
 
 /************************************************************************

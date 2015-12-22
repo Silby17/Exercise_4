@@ -712,9 +712,9 @@ void Cinema::printMoviesByPro(int id){
 		}
 	}
 
-	//if(printed == false){
+	if(printed == false){
 		//cout << "Failure" << endl;
-		//ans = "Failure";
+		ans = "Failure";
 		/*
 		if(this->c_Type == "UDP"){
 			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
@@ -723,7 +723,7 @@ void Cinema::printMoviesByPro(int id){
 			this->tcpServer->sendTCP("Failure", sizeof("Failure"));
 		}
 		 */
-	//}
+	}
 	printStringByServer(ans);
 }
 
@@ -858,7 +858,9 @@ void Cinema::printAllMovies(){
 			}
 		}
 	}
-	//else{}
+	else{
+		ans = "Failure";
+	}
 	printStringByServer(ans);
 }
 
@@ -880,7 +882,9 @@ void Cinema::printAllPros(){
 
 		}
 	}
-	//else{}
+	else{
+		ans = "Failure";
+	}
 	printStringByServer(ans);
 }
 
