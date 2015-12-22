@@ -709,19 +709,19 @@ void Cinema::printMoviesByPro(int id){
 void Cinema::removeMovie(string code){
 	int index = getMovieIndex(code);
 	int size = movies.size();
-
+	string ans;
 	//Checks if the movie is in the Movie List
 	//if it doesn't then print Failure
 	if(index == -1){
 		//cout << "Failure" << endl;
-		printStringByServer("Failure");
+		ans = "Failure";
 	}
 	//if it is then remove the movie
 	else {
 		movies.erase(movies.begin() + index);
 		if(size - movies.size() == 1){
 			//cout << "Success" << endl;
-			printStringByServer("Success");
+			ans = "Success";
 			/*
 			if(this->c_Type == "UDP"){
 				this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Success");
@@ -732,6 +732,7 @@ void Cinema::removeMovie(string code){
 			 */
 		}
 	}
+	printStringByServer(ans);
 }
 
 
@@ -792,13 +793,14 @@ void Cinema::removeProfessional(int id){
  ************************************************************************/
 void Cinema::removeProFromMovie(string code, int id){
 	int movieIndex = getMovieIndex(code);
+	string ans;
 
 	if(movieIndex != -1){
-		this->movies.at(movieIndex).removePro(id, 1);
+		ans = this->movies.at(movieIndex).removePro(id, 1);
 	}
 	else {
 		//cout << "Failure" << endl;
-		printStringByServer("Failure");
+		ans = "Failure";
 		/*
 		if(this->c_Type == "UDP"){
 			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
@@ -808,7 +810,7 @@ void Cinema::removeProFromMovie(string code, int id){
 		}
 		 */
 	}
-
+	printStringByServer(ans);
 }
 
 
@@ -817,28 +819,31 @@ void Cinema::removeProFromMovie(string code, int id){
  ************************************************************************/
 void Cinema::printAllMovies(){
 	//Define the iterator
+	string ans;
 	if(movies.size() != 0){
 		vector<Movie>::iterator it;
 		for(it = movies.begin(); it != movies.end(); it++){
-			it->printMovie();
+			ans = it->printMovie();
 		}
 	}
 	else{}
+	printStringByServer(ans);
 }
 
 /************************************************************************
  * 14) Prints all the Professionals of a movie given by the code		*
  ************************************************************************/
 void Cinema::printAllPros(){
-
+	string ans;
 	if(proPtrList.size() != 0){
 		//Define the iterator
 		vector<Professionals*>::iterator it;
 		for(it = proPtrList.begin(); it != proPtrList.end(); it++){
-			(*it)->printInfo();
+			ans = ans + (*it)->printInfo();
 		}
 	}
 	else{}
+	printStringByServer(ans);
 }
 
 
@@ -849,16 +854,17 @@ void Cinema::printAllPros(){
 void Cinema::printMovieByGenre(string genre){
 	bool foundAny = false;
 	vector<Movie>::iterator it;
+	string ans;
 
 	for(it = movies.begin(); it != movies.end(); it++){
 		if(it->checkGenre(genre) == true){
 			foundAny = true;
-			it->printMovie();
+			ans = ans + it->printMovie();
 		}
 	}
 	if(foundAny == false){
 		//cout << "Failure" << endl;
-		printStringByServer("Failure");
+		ans = "Failure";
 		/*
 		if(this->c_Type == "UDP"){
 			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
@@ -868,6 +874,7 @@ void Cinema::printMovieByGenre(string genre){
 		}
 		 */
 	}
+	printStringByServer(ans);
 }
 
 
