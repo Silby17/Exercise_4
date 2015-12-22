@@ -366,7 +366,9 @@ void Cinema::addProToMovie(string code, int id){
 	if(movieIndex != -1 && proIndex != -1){
 		//Checks that the Professional is not already in that movie
 		if(movies.at(movieIndex).getProIndex(id) == -1){
-			movies.at(movieIndex).addPro(proPtrList.at(proIndex), 1);
+			string result = movies.at(movieIndex).
+                    addPro(proPtrList.at(proIndex), 1);
+            printStringByServer(result);
 		}
 	}
 	//If the movie does not exist print error messages
