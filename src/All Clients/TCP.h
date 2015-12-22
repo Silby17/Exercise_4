@@ -1,14 +1,17 @@
 /****************************************
  * Yossi Silberhaft & Nava Shemoul		*
  * Exercise 4							*
- * File: TCP.h  						*
+ * File: TCP.h           				*
  ****************************************/
 #ifndef EXERCISE_4_TCP_H
 #define EXERCISE_4_TCP_H
+
 #include "udpTcpParent.h"
 
 class TCP: public udpTcpParent{
 
+protected:
+    int t_client_sock;
 public:
 
     /************************************************************************
@@ -37,4 +40,4 @@ public:
 };
 
 
-#endif //EXERCISE_4_TCP_H
+#endif
