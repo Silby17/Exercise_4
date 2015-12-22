@@ -41,7 +41,3 @@ void UDPServer::bindUDP(unsigned short int server_port) {
         perror("error binding to socket\n");
     }
 }
-
-
-
-
