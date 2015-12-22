@@ -46,7 +46,7 @@ public:
 	/************************************************************************
 	 * This function will start the running of the Program					*
 	 ************************************************************************/
-	void runCinema(std::string type, int port);
+	void runCinema(int type, int port);
 
 
 	/************************************************************************
