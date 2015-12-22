@@ -16,7 +16,7 @@ using namespace std;
 
 int main(int argc, char **argv) {
     //Gets the type from the passed arguments
-    string type = argv[1];
+    int type = atoi(argv[1]);
     //Gets the IP from passed arguments
     string ip = argv[2];
     //Gets the post number from passed arguments
@@ -30,7 +30,7 @@ int main(int argc, char **argv) {
     strcpy(cstr, ip.c_str());
 
     //Checks if the type is UDP or TCP
-    if(type == "UDP"){
+    if(type == 0){
         //If UDP then create the Connection
         UDPClient* udpClient = new UDPClient;
         udpClient->newSocket(SOCK_DGRAM);
@@ -65,7 +65,7 @@ int main(int argc, char **argv) {
         udpClient->closeConnection();
     }
         //Else if the type is a TCP Connection
-    else if(type == "TCP"){
+    else if(type == 1){
         TCPClient* tcpClient = new TCPClient;
         tcpClient->newSocket(SOCK_STREAM);
         tcpClient->connectTCP(port, cstr);
