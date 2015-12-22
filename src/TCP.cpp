@@ -1,5 +1,5 @@
 /****************************************
- * Yossi Silberhaft & Nava Shemoul						*
+ * Yossi Silberhaft & Nava Shemoul	    *
  * Exercise 4							*
  * File: TCP.cpp          				*
  ****************************************/
@@ -25,7 +25,6 @@ void TCP::sendTCP(char *data, unsigned int data_len) {
     if(sent_bytes < 0){
         perror("Sent bytes < 0\n");
     }
-
 }
 
 
@@ -35,6 +34,10 @@ void TCP::sendTCP(char *data, unsigned int data_len) {
 ************************************************************************/
 string TCP::receiveTCP() {
     char buffer[BUFFER_SIZE];
+
+    //THis will clear the buffer in order to receive the next input
+    memset(buffer, '\0', BUFFER_SIZE);
+
     int expected_data_len = sizeof(buffer);
     //Puts received bytes into buffer and returns size of received data
     int read_bytes = recv(sock, buffer, expected_data_len, 0);

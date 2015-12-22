@@ -1,5 +1,5 @@
 /****************************************
- * Yossi Silberhaft & Nava Shemoul						*
+ * Yossi Silberhaft & Nava Shemoul		*
  * Exercise 3							*
  * File: Movie.cpp						*
  ****************************************/
@@ -24,7 +24,7 @@ Movie::Movie(string code, string name, int len, int year, double rating,
 
 
 /************************************************************************
- * This function will sort the professionals by one of the			*
+ * This function will sort the professionals by one of the	    		*
  * three options below													*
  * 1) By ascending order of the ID numbers								*
  * 2) By age from Oldest to youngest									*
@@ -217,7 +217,7 @@ string Movie::removePro(int id, int flag){
 
 }
 /************************************************************************
- * Prints all the Professionals of the chosen movie		*
+ * Prints all the Professionals of the chosen movie	                	*
  ************************************************************************/
 string Movie::printAllPros(){
 	string print;
