@@ -28,10 +28,14 @@ Cinema::Cinema(){}
  * it will receive a Type and port which will be used to create			*
  * the necessary server													*
  ************************************************************************/
-void Cinema::runCinema(string type, int port){
+void Cinema::runCinema(int type, int port){
 	//Sets the Type or server/client we are using
-	this->c_Type = type;
-	int running = 1;
+    if(type == 0){
+        this->c_Type = "UDP";
+    }
+    else{
+        this->c_Type = "TCP";
+    }
 	int option;
 	int code;
 	string usrInput;
@@ -47,7 +51,7 @@ void Cinema::runCinema(string type, int port){
 	}
 
     //This is where the run loop of the program happens
-	while(running){
+	while(true){
 		if(this->c_Type == "TCP"){
 			usrInput = tcpServer->receiveTCP();
 		}
