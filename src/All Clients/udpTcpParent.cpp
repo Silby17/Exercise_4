@@ -13,7 +13,7 @@ udpTcpParent::udpTcpParent() { }
 
 
 /************************************************************************
- * This is the udpTcpParent Destructor                            *
+ * This is the udpTcpParent Destructor                                  *
 ************************************************************************/
 udpTcpParent::~udpTcpParent() { }
 
@@ -32,7 +32,6 @@ void udpTcpParent::newSocket(int sock_type) {
     else {
         sock = try_socket;
     }
-
 }
 
 
