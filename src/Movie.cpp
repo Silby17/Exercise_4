@@ -5,8 +5,11 @@
  ****************************************/
 #include "Movie.h"
 #include "Cinema.h"
-#include <iostream>
+#include <cmath>
+#include <iomanip>
 #include <algorithm>
+#include <sstream>
+
 using namespace std;
 
 /************************************************************************
@@ -125,10 +128,14 @@ string Movie::addGenre(string newGenre, int flag){
  * and print them in their correct form									*
  ************************************************************************/
  string Movie::printMovie(){
+    //Converts the Rating to a string with 1 decimal precision
+    stringstream stream;
+    stream << fixed << setprecision(1) << mRating;
+    string rating = stream.str();
 
 	//Starts printing the first part of the movie members
 	string print = mCode + " " + mName + " " + to_string(mLength) + " "
-			+ to_string(mYear)  + " " + to_string(mRating) + " ";
+			+ to_string(mYear)  + " " + rating + " ";
 
 	if(mGenre.size() == 1){
 		//cout << mGenre.at(0) << " ";
