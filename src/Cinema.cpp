@@ -194,6 +194,7 @@ void Cinema::addMovie(vector<string> inputVector){
 	double rating;
 	code = inputVector.at(1);
 	size = inputVector.size();
+	string ans;
 
     len = atoi(inputVector.at(3).c_str());
 
@@ -201,7 +202,7 @@ void Cinema::addMovie(vector<string> inputVector){
 	int atIndex = getMovieIndex(code);
 	if(atIndex != -1 || len < 0){
 
-		printStringByServer("Failure");
+		ans = "Failure";
 		//If the movie already exists in the list
 		/*
 		if(this->c_Type == "UDP"){
@@ -237,7 +238,7 @@ void Cinema::addMovie(vector<string> inputVector){
 		//Checks that the Movie was added to the list
 		if(movies.size() - vectorSize == 1){
 			//cout << "Success" << endl;
-			printStringByServer("Success");
+			ans ="Success";
 			/*
 			if(this->c_Type == "UDP"){
 				udpServer->sendTo(IP_ADDRESS, this->newPort, "Success");
@@ -248,6 +249,8 @@ void Cinema::addMovie(vector<string> inputVector){
 			 */
 		}
 	}
+	printStringByServer(ans);
+
 }
 
 
@@ -259,6 +262,7 @@ void Cinema::addPro(vector<string> inputVec){
 	int id, type, age;
 	string gender, name, description;
 	int listSize = proPtrList.size();
+	string ans;
 
 	type = atoi(inputVec.at(1).c_str());
 	id = atoi(inputVec.at(2).c_str());
@@ -268,7 +272,7 @@ void Cinema::addPro(vector<string> inputVec){
 
 	//Checks that the ID number is a positive Number
 	if(id < 0 || age < 0){
-		printStringByServer("Failure");
+		ans= "Failure";
 		/*
 		if(this->c_Type == "UDP"){
 			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
@@ -288,7 +292,7 @@ void Cinema::addPro(vector<string> inputVec){
 		name = ss.str();
 		int atIndex = getProIndex(id);
 		if(atIndex != - 1){
-			printStringByServer("Failure");
+			ans = "Failure";
 			/*
 			if(this->c_Type == "UDP"){
 				this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
@@ -336,7 +340,7 @@ void Cinema::addPro(vector<string> inputVec){
 			}
 			}
 			if(proPtrList.size() - listSize == 1){
-				printStringByServer("Success");
+				ans= "Success";
 				/*
 				if(this->c_Type == "UDP"){
 					this->udpServer->sendTo(IP_ADDRESS,
@@ -350,6 +354,7 @@ void Cinema::addPro(vector<string> inputVec){
 			}
 		}
 	}
+	printStringByServer(ans);
 }
 
 
@@ -361,18 +366,19 @@ void Cinema::addProToMovie(string code, int id){
 	//Gets the index of the movie and pro in their lists
 	int movieIndex = getMovieIndex(code);
 	int proIndex = getProIndex(id);
+	string ans;
 
 	//Checks that both the movie and the professional exist
 	if(movieIndex != -1 && proIndex != -1){
 		//Checks that the Professional is not already in that movie
 		if(movies.at(movieIndex).getProIndex(id) == -1){
-			movies.at(movieIndex).addPro(proPtrList.at(proIndex), 1);
+			ans = movies.at(movieIndex).addPro(proPtrList.at(proIndex), 1);
 		}
 	}
 	//If the movie does not exist print error messages
 	else {
 		//cout << "Failure" << endl;
-		printStringByServer("Failure");
+		ans = "Failure";
 		/*
 		if(this->c_Type == "UDP"){
 			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
@@ -382,6 +388,7 @@ void Cinema::addProToMovie(string code, int id){
 		}
 		 */
 	}
+	printStringByServer(ans);
 }
 
 
@@ -391,16 +398,17 @@ void Cinema::addProToMovie(string code, int id){
 void Cinema::addGenreToMovie(vector<string> vecInput){
 	string movieCode = vecInput.at(1);
 	string genre = vecInput.at(2);
+	string ans;
 
 	//Checks if the movie exists
 	int atIndex = getMovieIndex(movieCode);
 	//If the movie does exist then add the Genre to the Movie
 	if(atIndex != -1){
-		movies.at(atIndex).addGenre(genre, 1);
+		ans = movies.at(atIndex).addGenre(genre, 1);
 	}
 	//Else print an error message
 	else{
-		printStringByServer("Failure");
+		ans = "Failure";
 		/*
 		if(this->c_Type == "UDP"){
 			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
@@ -410,6 +418,7 @@ void Cinema::addGenreToMovie(vector<string> vecInput){
 		}
 		 */
 	}
+	printStringByServer(ans);
 }
 
 
@@ -420,14 +429,15 @@ void Cinema::addGenreToMovie(vector<string> vecInput){
  * of the different sort method											*
  ************************************************************************/
 void Cinema::sortPros(string code, int sortOption){
+	string ans;
 	//Gets the movie index
 	int movieIndex = getMovieIndex(code);
 	if(movieIndex != -1){
-		movies.at(movieIndex).sortPros(sortOption);
+		ans = movies.at(movieIndex).sortPros(sortOption);
 	}
 	//If the movie doesn't exist
 	else {
-		printStringByServer("Failure");
+		ans = "Failure";
 		/*
 		if(this->c_Type == "UDP"){
 			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
@@ -437,6 +447,7 @@ void Cinema::sortPros(string code, int sortOption){
 		}
 		 */
 	}
+	printStringByServer(ans);
 }
 
 
@@ -446,12 +457,13 @@ void Cinema::sortPros(string code, int sortOption){
  ************************************************************************/
 void Cinema::printProsOfMovie(std::string code){
 	int movieIndex = getMovieIndex(code);
-
+	string ans;
 	//Checks if the movie exists in the movies List
 	if(movieIndex != -1){
-		movies.at(movieIndex).printAllPros();
+		ans = movies.at(movieIndex).printAllPros();
 	}
 	else{
+		ans = "Failure";
 		/*
 		if(this->c_Type == "UDP"){
 			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
@@ -461,6 +473,7 @@ void Cinema::printProsOfMovie(std::string code){
 		}
 		 */
 	}
+	printStringByServer(ans);
 }
 
 
@@ -469,15 +482,15 @@ void Cinema::printProsOfMovie(std::string code){
  ************************************************************************/
 void Cinema::printMovie(string code){
 	int index = getMovieIndex(code);
-
+	string ans;
 	//Checks if the movie exists
 	if(index != -1){
 		//If it does then print
-		movies.at(index).printMovie();
+		ans = movies.at(index).printMovie();
 	}
 	//If it doesn't then print error message
 	else{
-		printStringByServer("Failure");
+		ans = "Failure";
 		/*
 		//cout << "Failure" << endl;
 		if(this->c_Type == "UDP"){
@@ -488,6 +501,8 @@ void Cinema::printMovie(string code){
 		}
 		 */
 	}
+	printStringByServer(ans);
+
 }
 
 
@@ -539,6 +554,7 @@ void Cinema::joinMovies(vector<string> inputVector){
 	string newCode;
 	vector<string>codesVec;
 	int i;
+	string ans;
 
 	//Breaks down the string of codes into a vector by the comma separator
 	istringstream ss(inputVector.at(1));
@@ -560,7 +576,7 @@ void Cinema::joinMovies(vector<string> inputVector){
 		else{
 			//cout << "Failure" << endl;
 			cont = false;
-			printStringByServer("Failure");
+			ans = "Failure";
 			/*
 			if(this->c_Type == "UDP"){
 				this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
@@ -658,7 +674,7 @@ void Cinema::joinMovies(vector<string> inputVector){
 		//Checks if the new Movie as been added to the Movie List
 		if(movies.size() - size == 1){
 			//cout << "Success" << endl;
-			printStringByServer("Success");
+			ans = "Success";
 			/*
 			if(this->c_Type == "UDP"){
 				this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Success");
@@ -670,6 +686,7 @@ void Cinema::joinMovies(vector<string> inputVector){
 
 		}
 	}
+	printStringByServer(ans);
 }
 
 
@@ -680,17 +697,24 @@ void Cinema::joinMovies(vector<string> inputVector){
 void Cinema::printMoviesByPro(int id){
 	vector<Movie>::iterator mIT;
 	bool printed = false;
+	string ans;
 
 	for(mIT = movies.begin(); mIT != movies.end(); mIT++){
 		if(mIT->getProIndex(id) != -1){
-			mIT->printMovie();
+			if(mIT ==  movies.begin()){
+				ans = ans + mIT->printMovie();
+			}
+			else{
+				ans = ans + "\n" +mIT->printMovie();
+			}
+
 			printed = true;
 		}
 	}
 
-	if(printed == false){
+	//if(printed == false){
 		//cout << "Failure" << endl;
-		printStringByServer("Success");
+		//ans = "Failure";
 		/*
 		if(this->c_Type == "UDP"){
 			this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Failure");
@@ -699,7 +723,8 @@ void Cinema::printMoviesByPro(int id){
 			this->tcpServer->sendTCP("Failure", sizeof("Failure"));
 		}
 		 */
-	}
+	//}
+	printStringByServer(ans);
 }
 
 
@@ -742,11 +767,12 @@ void Cinema::removeMovie(string code){
 void Cinema::removeProfessional(int id){
 	int index = getProIndex(id);
 	int size = proPtrList.size();
+	string ans;
 
 	//Checks if the Pro exists in the List
 	//if it doesn't then print Failure
 	if(index == -1){
-		printStringByServer("Failure");
+		ans = "Failure";
 		//cout << "Failure" << endl;
 		/*
 		if(this->c_Type == "UDP"){
@@ -764,7 +790,7 @@ void Cinema::removeProfessional(int id){
 			vector<Movie>::iterator it;
 			for(it = movies.begin(); it != movies.end(); it++){
 				if(it->getProIndex(id) != -1){
-					it->removePro(id, 0);
+					 it->removePro(id, 0);
 				}
 			}
 		}
@@ -773,7 +799,7 @@ void Cinema::removeProfessional(int id){
 
 		if(size - proPtrList.size() == 1){
 			//cout << "Success" << endl;
-			printStringByServer("Success");
+			ans = "Success";
 			/*
 			if(this->c_Type == "UDP"){
 				this->udpServer->sendTo(IP_ADDRESS, this->newPort, "Success");
@@ -784,6 +810,7 @@ void Cinema::removeProfessional(int id){
 			 */
 		}
 	}
+	printStringByServer(ans);
 }
 
 
@@ -823,10 +850,15 @@ void Cinema::printAllMovies(){
 	if(movies.size() != 0){
 		vector<Movie>::iterator it;
 		for(it = movies.begin(); it != movies.end(); it++){
-			ans = it->printMovie();
+			if(it == movies.begin()) {
+				ans = ans + it->printMovie();
+			}
+			else{
+				ans = ans +"\n" + it->printMovie();
+			}
 		}
 	}
-	else{}
+	//else{}
 	printStringByServer(ans);
 }
 
@@ -839,10 +871,16 @@ void Cinema::printAllPros(){
 		//Define the iterator
 		vector<Professionals*>::iterator it;
 		for(it = proPtrList.begin(); it != proPtrList.end(); it++){
-			ans = ans + (*it)->printInfo();
+			if(it == proPtrList.begin()){
+				ans = ans + (*it)->printInfo();
+			}
+			else{
+				ans = ans +  "\n" + (*it)->printInfo();
+			}
+
 		}
 	}
-	else{}
+	//else{}
 	printStringByServer(ans);
 }
 
@@ -859,7 +897,13 @@ void Cinema::printMovieByGenre(string genre){
 	for(it = movies.begin(); it != movies.end(); it++){
 		if(it->checkGenre(genre) == true){
 			foundAny = true;
-			ans = ans + it->printMovie();
+			if(it == movies.begin()){
+				ans = ans + it->printMovie();
+			}
+			else{
+				ans = ans +"\n" + it->printMovie();
+			}
+
 		}
 	}
 	if(foundAny == false){
