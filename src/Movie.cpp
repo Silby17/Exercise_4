@@ -215,8 +215,7 @@ string Movie::removePro(int id, int flag){
 			return "Failure";
 		}
 	}
-
-
+    return "Done"
 }
 /************************************************************************
  * Prints all the Professionals of the chosen movie	                	*
