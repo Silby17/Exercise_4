@@ -20,7 +20,7 @@ using namespace std;
 int main(int argc, char **argv){
 	//Gets the Server/Client type and port number from Arguments
 	int port = atoi(argv[2]);
-	string type = argv[1];
+	int type = atoi(argv[1]);
 	Cinema cinema;
 	cinema.runCinema(type, port);
 
