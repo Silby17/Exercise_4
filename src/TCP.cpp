@@ -34,10 +34,6 @@ void TCP::sendTCP(char *data, unsigned int data_len) {
 ************************************************************************/
 string TCP::receiveTCP() {
     char buffer[BUFFER_SIZE];
-
-    //THis will clear the buffer in order to receive the next input
-    memset(buffer, '\0', BUFFER_SIZE);
-
     int expected_data_len = sizeof(buffer);
     //Puts received bytes into buffer and returns size of received data
     int read_bytes = recv(sock, buffer, expected_data_len, 0);
@@ -53,6 +49,8 @@ string TCP::receiveTCP() {
         //Returns the string of the input from the Client
     else {
         string str(buffer);
+        //This will clear the buffer in order to receive the next input
+        memset(&buffer, 0, sizeof(BUFFER_SIZE));
         return str;
     }
 }

@@ -89,6 +89,7 @@ int main(int argc, char **argv) {
             received = tcpClient->receiveTCP();
             //Prints out received info from the server
             cout << received << endl;
+            memset(&data, 0, sizeof(BUFFER_SIZE));
         }
         //Close connection
         tcpClient->closeConnection();

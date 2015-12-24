@@ -47,8 +47,7 @@ string UDP::receiveFrom() {
     struct sockaddr_in from;
     unsigned int from_len = sizeof(struct sockaddr_in);;
     char buffer[BUFFER_SIZE];
-    //This will clear the Buffer in order to get the next input
-    memset(buffer, '\0', BUFFER_SIZE);
+
     int bytes = recvfrom(sock, buffer, sizeof(buffer), 0,
                          (struct sockaddr *) &from, &from_len);
 
@@ -58,7 +57,8 @@ string UDP::receiveFrom() {
     else{
         port = ntohs(from.sin_port);
         string str(buffer);
-
+        //This will clear the Buffer in order to get the next input
+        memset(&buffer, 0, sizeof(BUFFER_SIZE));
         return str;
     }
 }
