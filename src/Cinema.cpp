@@ -182,13 +182,13 @@ void Cinema::printStringByServer(string printMe) {
         char *y1 = new char[printMe.length() + 1];
         strcpy(y1, printMe.c_str());
 
-        this->tcpServer->sendTCP( y1, sizeof( printMe));
+        this->tcpServer->sendTCP(y1, BUFFER_SIZE);
     }
 }
 
 
 /************************************************************************
- * 1) This function will create a new movie by receiving all the			*
+ * 1) This function will create a new movie by receiving all the		*
  * necessary parameters of a movie										*
  ************************************************************************/
 void Cinema::addMovie(vector<string> inputVector){
