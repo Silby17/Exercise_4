@@ -98,7 +98,8 @@ void Cinema::runCinema(int type, int port){
 		}
 		case 8:
 		{
-			joinMovies(inputVec);
+			//joinMovies(inputVec);
+            printStringByServer("Faliure");
 			break;
 		}
 		case 9:
