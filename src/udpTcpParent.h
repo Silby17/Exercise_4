@@ -15,8 +15,7 @@
 #include <unistd.h>
 #include <iostream>
 using namespace std;
-#define BUFFER_SIZE 100000
-
+#define BUFFER_SIZE 4096
 
 class udpTcpParent{
 
