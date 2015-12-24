@@ -32,6 +32,8 @@ void TCPServer::bindTCP(unsigned int server_port){
     //binds a socket to a port number
     if (bind(this->sock, (struct sockaddr *) &sin, sizeof(sin)) < 0) {
         cout << "TCP Server error binding\n";
+        //Exit the program if there is an error binding
+        exit(1);
     }
 }
 
